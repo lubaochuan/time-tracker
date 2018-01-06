@@ -10,13 +10,13 @@ const initialState = {
       note: 'She finished this task in the afternoon.'},
     {student: 'Anna Lu', subject: 'Life Skills', date:'2017-12-01', duration:'50',
         note: 'She learned to make pancakes.'}, ],
-  students: ['Esther Lu', 'Anna Lu'],
+  students: [ {name:'Esther Lu'}, {name:'Anna Lu'} ],
   subjects: [
-    {title: 'Math', core:true},
-    {title: 'Language', core:true},
-    {title: 'Art', core:false},
-    {title: 'Science', core:true},
-    {title: 'Life Skills', core:false}, ],
+    {name: 'Math', core:true},
+    {name: 'Language', core:true},
+    {name: 'Art', core:false},
+    {name: 'Science', core:true},
+    {name: 'Life Skills', core:false}, ],
 }
 
 export const main = (state = initialState, action) => {
@@ -50,7 +50,7 @@ export const main = (state = initialState, action) => {
     case 'UPDATE_STUDENT':
       return {
         ...state,
-        students: state.subjects.map(
+        students: state.students.map(
           (student, index) => {
             if(action.index === index){
               return action.payload
