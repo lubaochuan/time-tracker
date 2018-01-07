@@ -46,7 +46,7 @@ class TaskEdit extends React.Component {
     )
   });
 
-  renderInput = ({ input, label, type, meta: { touched, error, warning } })=>{
+  renderInput = ({ input, label, placeholder, type, meta: { touched, error, warning } })=>{
     var hasError= false;
     if(error !== undefined){
       hasError= true;
@@ -54,11 +54,27 @@ class TaskEdit extends React.Component {
     return(
       <Item stackedLabel error= {hasError}>
         <Label>{label}</Label>
-        <Input {...input}/>
+        <Input {...input} placeholder={placeholder}/>
         {hasError ? <Text>{error}</Text> : <Text />}
       </Item>
     )
   }
+
+  renderPicker = ({ input: { onChange, value, ...inputProps },
+    label, children,  ...pickerProps }) => (
+    <Item stackedLabel>
+      <Label>{label}</Label>
+    <Picker
+      placeholder="Select One"
+      selectedValue={ value }
+      onValueChange={ value => onChange(value) }
+      { ...inputProps }
+      { ...pickerProps }
+    >
+      { children }
+    </Picker>
+    </Item>
+  )
   
   renderDatePicker = ({ input: { onChange, value, ...inputProps } }) => (
     <Item stackedLabel>
@@ -85,20 +101,39 @@ class TaskEdit extends React.Component {
   );
 
   render() {
-    const { handleSubmit, student, subject } = this.props;
+    const { handleSubmit, students, subjects } = this.props;
 
     return (
       <Container>
         <Content padder>
-          <Field name="student" label="Student" disabled component={this.renderInput} />
-          <Field name="subject" label="Subject" disabled component={this.renderInput} />
+          <Field
+            name="student"
+            label="Student"
+            component={ this.renderPicker }
+            iosHeader="Select one"
+            mode="dropdown">
+            {students.map((student, index) =>
+              <Item label={student} value={student} key={index}/>)}
+          </Field>
+          <Field
+            name="subject"
+            label="Subject"
+            component={ this.renderPicker }
+            iosHeader="Select one"
+            mode="dropdown">
+            {subjects.map((subject, index) =>
+              <Item label={subject} value={subject} key={index}/>)}
+          </Field>
           <Field name="date" component={this.renderDatePicker}/>
           <Field name="duration"
             label="Duration (minutes)"
+            placeholder="Enter duration here"
             parse={value => Number(value)}
-            type="number"
             component={this.renderInput} />
-          <Field name="note" label="Note" disabled component={this.renderInput} />
+          <Field name="note"
+            label="Note"
+            placeholder="Enter note here"
+            component={this.renderInput} />
           <Button block rounded primary onPress={handleSubmit}>
             <Text>Save</Text>
           </Button>

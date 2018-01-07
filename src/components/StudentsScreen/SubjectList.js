@@ -62,16 +62,23 @@ export default class SubjectList extends Component {
     this.props.navigation.goBack(null)
   }
 
-  openTask(student, subject) {
+  newTask(student, subject) {
+    students = this.props.students.map(item => item.name)
+    subjects = this.props.subjects.map(item => item.name)
     this.props.navigation.navigate(
       'TaskEdit',
       {initialValues: {student: student.name, subject: subject.name,
         date: new moment().format("YYYY-MM-DD")},
-        student, subject, onSubmit: this.addTask})
+        students, subjects, onSubmit: this.addTask})
   }
-    
+
   addTask = (values) => {
     this.props.addTask(values)
+    this.props.navigation.goBack(null)
+  }
+
+  updateTask = (values) => {
+    this.props.updateTask(values.index, values)
     this.props.navigation.goBack(null)
   }
 
@@ -82,7 +89,8 @@ export default class SubjectList extends Component {
           <List>
             {this.props.subjects.map((subject, index) =>
             <ListItem
-              onPress={() => this.openTask(this.props.student, subject)}
+              key={index}
+              onPress={() => this.newTask(this.props.student, subject)}
               onLongPress={() =>
                 Alert.alert(
                   'Quick Menu',

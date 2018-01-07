@@ -6,6 +6,7 @@ import SubjectList from './SubjectList'
 function mapStateToProps(state) {
   return {
     tasks: state.main.tasks,
+    students: state.main.students,
     subjects: state.main.subjects,
   }
 }
@@ -16,6 +17,7 @@ function mapDispatchToProps(dispatch) {
     updateSubject: (index, payload) => dispatch(updateSubject(index, payload)),
     removeSubject: index => dispatch(removeSubject(index)),
     addTask: payload => dispatch(addTask(payload)),
+    updateTask: (index, payload) => dispatch(updateTask(index, payload)),
   }
 }
 

@@ -74,6 +74,7 @@ export default class StudentList extends Component {
           <List>
             {this.props.students.map((student, index) =>
             <ListItem
+              key={index}
               onPress={() => this.pickSubject(student)}
               onLongPress={() =>
                 Alert.alert(

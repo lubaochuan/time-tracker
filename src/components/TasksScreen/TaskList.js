@@ -34,6 +34,7 @@ export default class TaskList extends Component {
           <List>
           {this.props.tasks.map((task, index) =>
           <ListItem
+            key={index}
             onLongPress={() =>
               Alert.alert(
                 'Quick Menu',
@@ -46,7 +47,7 @@ export default class TaskList extends Component {
                 { cancelable: false }
               )}>
             <Body>
-              <Text>{task.student}:{task.subject}</Text>
+              <Text>{task.student} / {task.subject}</Text>
               <Text note>
                 {task.date} {"\n"}
                 {task.duration} minutes {"\n"}

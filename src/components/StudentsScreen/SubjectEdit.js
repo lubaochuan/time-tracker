@@ -49,7 +49,7 @@ class SubjectEdit extends Component {
       hasError= true;
     }
     return(
-      <ListItem fixedLabel error= {hasError}>
+      <ListItem stackedLabel error= {hasError}>
         <Label>{label}</Label>
         <Input {...input} placeholder={placeholder}/>
         {hasError ? <Text>{error}</Text> : <Text />}
@@ -73,7 +73,7 @@ class SubjectEdit extends Component {
     return (
       <Container>
         <Content padder>
-          <Field name="name" label="Name:" placeholder="Enter a name" component={this.renderInput} />
+          <Field name="name" label="Subject:" placeholder="Enter subject name" component={this.renderInput} />
           <Field name="core" label="Core Subject" component={this.renderCheckbox} />
           <ListItem>
           <Button block rounded primary onPress={handleSubmit}>

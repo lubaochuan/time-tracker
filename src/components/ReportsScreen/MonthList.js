@@ -76,14 +76,14 @@ export default class MonthList extends Component {
       <Container>
         <Content>
         {this.state.monthes.map((item, index) =>
-        <Card>
+        <Card key={index}>
           <CardItem header>
             <Text>{item.month}</Text>
           </CardItem>
           <CardItem>
             <Body>
               {item.subjects.map((item, index) =>
-              <Text>
+              <Text key={index}>
                 {item.subject}: {minutesToHours(item.total)} hrs
                 ({item.total} mins)
               </Text>)}
