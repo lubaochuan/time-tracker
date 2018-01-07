@@ -17,15 +17,31 @@ function minutesToHours(minutes){
   return (minutes/60).toFixed(1)
 }
 
-export default class MonthList extends Component {
+export default class MonthlyList extends Component {
+  static navigationOptions = ({ navigation, student }) => ({
+    header: (
+      <Header>
+        <Left>
+          <Button transparent onPress={() => navigation.goBack()}>
+            <Icon name="arrow-back" />
+          </Button>
+        </Left>
+        <Body>
+          <Title>{student.name}</Title>
+        </Body>
+        <Right />
+      </Header>
+    )
+  })
+
   constructor(props){
     super(props)
 
     cores = this.props.subjects.filter(subject => subject.core)
     cores = cores.map(item => item.name)
 
-    // find Esther's tasks
-    tasks = this.props.tasks.filter(task => task.student == 'Esther Lu')
+    student = this.props.student.name
+    tasks = this.props.tasks.filter(task => task.student == student)
     tasks = tasks.map(task => {
       obj =
       {

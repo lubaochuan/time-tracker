@@ -20,7 +20,7 @@ export default class SubjectList extends Component {
         <Right />
       </Header>
     )
-  });
+  })
 
   static propTypes = {
     addStudent: PropTypes.func,

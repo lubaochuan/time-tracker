@@ -2,15 +2,15 @@ import React, { Component } from "react"
 
 import StudentsStackNavigator from './StudentsStackNavigator'
 import TasksStackNavigator from '../TasksScreen/TasksStackNavigator'
-import MonthListContainer from '../ReportsScreen/MonthListContainer'
+import ReportsStackNavigator from '../ReportsScreen/ReportsStackNavigator'
 import SideBar from "../SideBar/SideBar.js"
 import { DrawerNavigator } from "react-navigation"
 
 const StudentsScreenRouter = DrawerNavigator(
   {
-    Students: { screen: StudentsStackNavigator },
+    'Add Record': { screen: StudentsStackNavigator },
     'All Records': { screen: TasksStackNavigator },
-    Reports: { screen: MonthListContainer },
+    Reports: { screen: ReportsStackNavigator },
   },
   {
     contentComponent: props => <SideBar {...props} />,
