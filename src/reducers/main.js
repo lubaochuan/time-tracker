@@ -1,15 +1,15 @@
 const initialState = {
   tasks: [
-    {student: 'Esther Lu', subject: 'Math', date:'2017-12-01', duration:'30',
-      note: 'She finished this task in the morning.'},
-    {student: 'Esther Lu', subject: 'Math', date:'2017-12-02', duration:'25',
+    {student: 'Esther Lu', subject: 'Math', date:'2017-12-03', duration:'25',
         note: 'She practiced multiplication.'},
-    {student: 'Esther Lu', subject: 'Art', date:'2017-11-01', duration:'30',
-      note: 'She painted a picture.'},
+    {student: 'Esther Lu', subject: 'Math', date:'2017-12-02', duration:'30',
+        note: 'She finished this task in the morning.'},
     {student: 'Anna Lu', subject: 'Math', date:'2017-12-01', duration:'30',
       note: 'She finished this task in the afternoon.'},
     {student: 'Anna Lu', subject: 'Life Skills', date:'2017-12-01', duration:'50',
-        note: 'She learned to make pancakes.'}, ],
+        note: 'She learned to make pancakes.'},
+    {student: 'Esther Lu', subject: 'Art', date:'2017-11-01', duration:'30',
+        note: 'She painted a picture.'}, ],
   students: [ {name:'Esther Lu'}, {name:'Anna Lu'} ],
   subjects: [
     {name: 'Math', core:true},
@@ -19,23 +19,35 @@ const initialState = {
     {name: 'Life Skills', core:false}, ],
 }
 
+function compare(a, b) {
+  if (a.date > b.date)
+    return -1
+  if (a.date < b.date)
+    return 1
+  return 0
+}
+
 export const main = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_TASK':
-      return { ...state,
-        tasks: [...state.tasks, action.payload],
-      }
-    case 'UPDATE_TASK':
+      newTasks = [...state.tasks, action.payload]
+      newTasks = newTasks.sort(compare)
       return {
         ...state,
-        tasks: state.tasks.map(
-          (task, index) => {
-            if(action.index === index){
-              return action.payload
-            }else{
-              return task
-            }
-          })
+        tasks: newTasks
+      }
+    case 'UPDATE_TASK':
+      newTasks = state.tasks.map(
+        (task, index) => {
+          if(action.index === index){
+            return action.payload
+          }else{
+            return task
+          }})
+      newTasks = newTasks.sort(compare)
+      return {
+        ...state,
+        tasks: newTasks
       }
     case 'REMOVE_TASK':
       return {

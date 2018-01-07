@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import StudentListContainer from "./StudentListContainer.js"
+import StudentListContainer from "./StudentListContainer"
 import SubjectListContainer from "./SubjectListContainer"
 import { StackNavigator } from "react-navigation"
 import StudentEdit from "./StudentEdit"
