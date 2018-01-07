@@ -19,4 +19,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StudentList);
+export default connect(mapStateToProps, mapDispatchToProps)(StudentList)

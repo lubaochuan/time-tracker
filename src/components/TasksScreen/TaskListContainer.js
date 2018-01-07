@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { updateTasks } from '../../actions'
-import TaskList from './TaskList';
+import TaskList from './TaskList'
 
 
 function mapStateToProps(state) {
@@ -8,7 +8,7 @@ function mapStateToProps(state) {
     tasks: state.main.tasks,
     students: state.main.students,
     subjects: state.main.subjects,
-  };
+  }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -18,4 +18,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskList);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskList)
