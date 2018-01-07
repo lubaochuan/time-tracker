@@ -43,7 +43,7 @@ class StudentEdit extends Component {
     )
   });
 
-  renderInput = ({ input, label, type, meta: { touched, error, warning } })=>{
+  renderInput = ({ input, label, placeholder, type, meta: { touched, error, warning } })=>{
     var hasError= false;
     if(error !== undefined){
       hasError= true;
@@ -51,7 +51,7 @@ class StudentEdit extends Component {
     return(
       <Item stackedLabel error= {hasError}>
         <Label>{label}</Label>
-        <Input {...input}/>
+        <Input {...input} placeholder={placeholder}/>
         {hasError ? <Text>{error}</Text> : <Text />}
       </Item>
     )
@@ -63,7 +63,10 @@ class StudentEdit extends Component {
     return (
       <Container>
         <Content padder>
-          <Field name="name" label="Name" component={this.renderInput} />
+          <Field name='name'
+            label='Name'
+            placeholder='Enter name here'
+            component={this.renderInput} />
           <Button block rounded primary onPress={handleSubmit}>
             <Text>Save</Text>
           </Button>

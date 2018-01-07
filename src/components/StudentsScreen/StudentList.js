@@ -5,6 +5,26 @@ import { Alert } from 'react-native'
 import PropTypes from 'prop-types'
 
 export default class StudentList extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isNavigating: false,
+    }
+  }
+
+  // avoid double taps
+  toggleNavigation() {
+    this.state.isNavigating = false
+  }
+
+  navigate(go){
+    if (this.state.isNavigating == false) {
+      this.state.isNavigating = true
+      go()
+      setTimeout(this.toggleNavigation.bind(this), 500)
+    }
+  }
+
   static navigationOptions = ({ navigation }) => ({
     header: (
       <Header>
@@ -34,13 +54,15 @@ export default class StudentList extends Component {
   }
 
   edit(student, index) {
-    this.props.navigation.navigate(
-      'StudentEdit',
-      {initialValues: {...student, index}, index, onSubmit: this.update})
+    this.navigate(()=>
+      this.props.navigation.navigate(
+        'StudentEdit',
+        {initialValues: {...student, index}, index, onSubmit: this.update}))
   }
   
-  pickSubject(student) {
-    this.props.navigation.navigate('SubjectList', {student})
+  pickSubject(student){
+    this.navigate(()=>
+      this.props.navigation.navigate('SubjectList', {student}))
   }
   
   update = (values) => {
@@ -74,6 +96,7 @@ export default class StudentList extends Component {
           <List>
             {this.props.students.map((student, index) =>
             <ListItem
+              disabled={this.state.disabled}
               key={index}
               onPress={() => this.pickSubject(student)}
               onLongPress={() =>

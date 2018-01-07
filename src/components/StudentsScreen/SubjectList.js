@@ -6,6 +6,26 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 
 export default class SubjectList extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isNavigating: false,
+    }
+  }
+
+  // avoid double taps
+  toggleNavigation() {
+    this.state.isNavigating = false
+  }
+
+  navigate(go){
+    if (this.state.isNavigating == false) {
+      this.state.isNavigating = true
+      go()
+      setTimeout(this.toggleNavigation.bind(this), 500)
+    }
+  }
+
   static navigationOptions = ({ navigation }) => ({
     header: (
       <Header>
@@ -30,9 +50,10 @@ export default class SubjectList extends Component {
   }
   
   edit(subject, index) {
+    this.navigate(()=>
     this.props.navigation.navigate(
       'SubjectEdit',
-      {initialValues: {...subject, index}, index, onSubmit: this.update})
+      {initialValues: {...subject, index}, index, onSubmit: this.update}))
   }
 
   update = (values) => {
@@ -63,6 +84,7 @@ export default class SubjectList extends Component {
   }
 
   newTask(student, subject) {
+    this.navigate(()=>{
     students = this.props.students.map(item => item.name)
     subjects = this.props.subjects.map(item => item.name)
     edit = false
@@ -70,7 +92,7 @@ export default class SubjectList extends Component {
       'TaskEdit',
       {initialValues: {student: student.name, subject: subject.name,
         date: new moment().format("YYYY-MM-DD")}, edit,
-        students, subjects, onSubmit: this.addTask})
+        students, subjects, onSubmit: this.addTask})})
   }
 
   addTask = (values) => {

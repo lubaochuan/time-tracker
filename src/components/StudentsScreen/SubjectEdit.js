@@ -49,22 +49,20 @@ class SubjectEdit extends Component {
       hasError= true;
     }
     return(
-      <ListItem stackedLabel error= {hasError}>
+      <Item stackedLabel error= {hasError}>
         <Label>{label}</Label>
         <Input {...input} placeholder={placeholder}/>
         {hasError ? <Text>{error}</Text> : <Text />}
-      </ListItem>
+      </Item>
     )
   }
   
   renderCheckbox = ({ input, label, custom }) => (
-    <ListItem fixedLabel>
+    <Item stackedLabel>
+      <Label>{label}</Label>
       <CheckBox {...input} checked={input.value ? true : false}
         onPress={() => input.onChange(!input.value)} />
-      <Body>
-        <Text>{label}</Text>
-      </Body>
-    </ListItem>
+    </Item>
   )
 
   render() {
@@ -73,16 +71,17 @@ class SubjectEdit extends Component {
     return (
       <Container>
         <Content padder>
-          <Field name="name" label="Subject:" placeholder="Enter subject name" component={this.renderInput} />
-          <Field name="core" label="Core Subject" component={this.renderCheckbox} />
-          <ListItem>
+          <Field name='name'
+            label='Subject'
+            placeholder='Enter subject name'
+            component={this.renderInput} />
+          <Field name='core' label='Core Subject' component={this.renderCheckbox} />
           <Button block rounded primary onPress={handleSubmit}>
             <Text>Save</Text>
           </Button>
           <Button block rounded bordered primary onPress={()=>this.props.navigation.goBack(null)}>
             <Text>Cancel</Text>
           </Button>
-          </ListItem>
         </Content>
       </Container>
     );

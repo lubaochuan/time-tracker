@@ -6,6 +6,26 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 
 export default class TaskList extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isNavigating: false,
+    }
+  }
+
+  // avoid double taps
+  toggleNavigation() {
+    this.state.isNavigating = false
+  }
+
+  navigate(go){
+    if (this.state.isNavigating == false) {
+      this.state.isNavigating = true
+      go()
+      setTimeout(this.toggleNavigation.bind(this), 500)
+    }
+  }
+
   static navigationOptions = ({ navigation }) => ({
     header: (
       <Header>
@@ -29,6 +49,7 @@ export default class TaskList extends Component {
   }
 
   editTask(task, index) {
+    this.navigate(()=>{
     students = this.props.students.map(item => item.name)
     subjects = this.props.subjects.map(item => item.name)
 
@@ -40,6 +61,7 @@ export default class TaskList extends Component {
       'TaskEdit',
       {initialValues:task, students, subjects, edit,
         onSubmit: (values)=>this.updateTask(index, values)})
+    })
   }
 
   updateTask = (index, values) => {
