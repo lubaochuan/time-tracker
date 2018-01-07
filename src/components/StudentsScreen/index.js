@@ -9,7 +9,7 @@ import { DrawerNavigator } from "react-navigation"
 const StudentsScreenRouter = DrawerNavigator(
   {
     Students: { screen: StudentsStackNavigator },
-    'All Tasks': { screen: TasksStackNavigator },
+    'All Records': { screen: TasksStackNavigator },
     Reports: { screen: MonthListContainer },
   },
   {

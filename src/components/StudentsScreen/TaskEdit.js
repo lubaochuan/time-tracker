@@ -93,7 +93,11 @@ class TaskEdit extends React.Component {
           <Field name="student" label="Student" disabled component={this.renderInput} />
           <Field name="subject" label="Subject" disabled component={this.renderInput} />
           <Field name="date" component={this.renderDatePicker}/>
-          <Field name="duration" label="Duration (minutes)" component={this.renderInput} />
+          <Field name="duration"
+            label="Duration (minutes)"
+            parse={value => Number(value)}
+            type="number"
+            component={this.renderInput} />
           <Field name="note" label="Note" disabled component={this.renderInput} />
           <Button block rounded primary onPress={handleSubmit}>
             <Text>Save</Text>
