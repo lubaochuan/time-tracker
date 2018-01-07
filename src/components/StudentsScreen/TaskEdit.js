@@ -30,7 +30,7 @@ class TaskEdit extends React.Component {
     super(props)
   }
 
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({ navigation, edit }) => ({
     header: (
       <Header>
         <Left>
@@ -39,7 +39,7 @@ class TaskEdit extends React.Component {
           </Button>
         </Left>
         <Body>
-          <Title>{"New"}</Title>
+          <Title>{edit?'Edit':'New'}</Title>
         </Body>
         <Right />
       </Header>

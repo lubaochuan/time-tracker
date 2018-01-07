@@ -65,20 +65,16 @@ export default class SubjectList extends Component {
   newTask(student, subject) {
     students = this.props.students.map(item => item.name)
     subjects = this.props.subjects.map(item => item.name)
+    edit = false
     this.props.navigation.navigate(
       'TaskEdit',
       {initialValues: {student: student.name, subject: subject.name,
-        date: new moment().format("YYYY-MM-DD")},
+        date: new moment().format("YYYY-MM-DD")}, edit,
         students, subjects, onSubmit: this.addTask})
   }
 
   addTask = (values) => {
     this.props.addTask(values)
-    this.props.navigation.goBack(null)
-  }
-
-  updateTask = (values) => {
-    this.props.updateTask(values.index, values)
     this.props.navigation.goBack(null)
   }
 

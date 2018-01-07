@@ -3,6 +3,7 @@ import { Container, Header, Title, Content, InputGroup, Input, List, Button,
   Body, Icon, Left, Right, Text, ListItem } from 'native-base'
 import { Alert } from 'react-native'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 
 export default class TaskList extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -14,7 +15,7 @@ export default class TaskList extends Component {
         </Button>
       </Left>
       <Body>
-        <Title>Tasks</Title>
+        <Title>Records</Title>
       </Body>
       <Right />
       </Header>
@@ -27,6 +28,30 @@ export default class TaskList extends Component {
     tasls: PropTypes.array,
   }
 
+  editTask(task, index) {
+    students = this.props.students.map(item => item.name)
+    subjects = this.props.subjects.map(item => item.name)
+
+    // convert number type to string type
+    duration = {duration:task.duration.toString()}
+    task = {...task, ...duration}
+    edit = true
+    this.props.navigation.navigate(
+      'TaskEdit',
+      {initialValues:task, students, subjects, edit,
+        onSubmit: (values)=>this.updateTask(index, values)})
+  }
+
+  updateTask = (index, values) => {
+    this.props.updateTask(index, values)
+    this.props.navigation.goBack(null)
+  }
+
+  deleteTask = (index) => {
+    this.props.removeTask(index)
+    this.props.navigation.goBack(null)
+  }
+
   render() {
     return (
       <Container>
@@ -35,13 +60,14 @@ export default class TaskList extends Component {
           {this.props.tasks.map((task, index) =>
           <ListItem
             key={index}
+            onPress={() => this.editTask(task, index)}
             onLongPress={() =>
               Alert.alert(
                 'Quick Menu',
                 null,
                 [
-                  {text: 'Edit'},
-                  {text: 'Delete'},
+                  {text: 'Edit', onPress: () => this.editTask(task, index)},
+                  {text: 'Delete', onPress: () => this.deleteTask(index)},
                   {text: 'Cancel'}
                 ],
                 { cancelable: false }
@@ -58,6 +84,6 @@ export default class TaskList extends Component {
           </List>
         </Content>
       </Container>
-    );
+    )
   }
 }
