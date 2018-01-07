@@ -13,6 +13,10 @@ Array.prototype.groupBy = function(prop) {
   }, {})
 }
 
+function minutesToHours(minutes){
+  return (minutes/60).toFixed(1)
+}
+
 export default class MonthList extends Component {
   constructor(props){
     super(props)
@@ -66,30 +70,6 @@ export default class MonthList extends Component {
         subject}:{total} hours
       </Text>)
   }
-  
-  renderMonth(month) {
-    subjects = []
-    Object.keys(month).forEach(subject =>
-      subjects.push[this.renderSubject(subject, month[subject])])
-    return subjects
-  }
-
-  renderReport() {
-    report = []
-    Object.keys(monthes).forEach(month => (
-      report.push(
-        <Card>
-          <CardItem header>
-            <Text>{month}</Text>
-          </CardItem>
-          <CardItem>
-            <Body>
-              {this.renderMonth(monthes[month])}
-            </Body>
-          </CardItem>
-        </Card>)))
-    return report
-  }
 
   render() {
     return (
@@ -104,7 +84,8 @@ export default class MonthList extends Component {
             <Body>
               {item.subjects.map((item, index) =>
               <Text>
-                {item.subject}:{item.total} hours
+                {item.subject}: {minutesToHours(item.total)} hrs
+                ({item.total} mins)
               </Text>)}
             </Body>
           </CardItem>

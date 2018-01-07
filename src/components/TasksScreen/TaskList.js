@@ -46,7 +46,7 @@ export default class TaskList extends Component {
                 { cancelable: false }
               )}>
             <Body>
-              <Text>{task.subject}:{task.student}</Text>
+              <Text>{task.student}:{task.subject}</Text>
               <Text note>
                 {task.date} {"\n"}
                 {task.duration} minutes {"\n"}
