@@ -13,8 +13,15 @@ Array.prototype.groupBy = function(prop) {
   }, {})
 }
 
-function minutesToHours(minutes){
+function minutesToHours(minutes) {
   return (minutes/60).toFixed(1)
+}
+
+monthNames = ["", "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"]
+
+function getMonthName(num) {
+  return monthNames[parseInt(num)];
 }
 
 export default class MonthlyList extends Component {
@@ -58,16 +65,20 @@ export default class MonthlyList extends Component {
         eachmonth = monthes[month]
         subjects = eachmonth.groupBy('subject')
         core = 0
+        monthTotal = 0
         subs = []
         Object.keys(subjects).forEach(subject => {
           total = subjects[subject].reduce((a, b) => a+b.duration, 0)
           subs.push({'subject':subject, 'total':total})
+          monthTotal += total
           if (cores.indexOf(subject) > -1){
             core += total
           }
         })
-        subs.push({'subject':'core', 'total':core})
-        all.push({'month':month, 'subjects':subs})
+        all.push({'month':month,
+                  'subjects':subs,
+                  'core':core,
+                  'overall':monthTotal,})
     })
     console.log(JSON.stringify(all))
     this.state = {monthes: all}
@@ -94,7 +105,7 @@ export default class MonthlyList extends Component {
         {this.state.monthes.map((item, index) =>
         <Card key={index}>
           <CardItem header>
-            <Text>{item.month}</Text>
+            <Text>{getMonthName(item.month.substring(5, 7))} / {item.month.substring(0, 4)}</Text>
           </CardItem>
           <CardItem>
             <Body>
@@ -103,6 +114,9 @@ export default class MonthlyList extends Component {
                 {item.subject}: {minutesToHours(item.total)} hrs
                 ({item.total} mins)
               </Text>)}
+              <Text> </Text>
+              <Text>Core Subjects: {minutesToHours(item.core)} hrs</Text>
+              <Text>Other Subjects: {minutesToHours(item.overall - item.core)} hrs</Text>
             </Body>
           </CardItem>
         </Card>)}
