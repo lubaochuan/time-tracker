@@ -100,6 +100,22 @@ export default class SubjectList extends Component {
     this.props.addTask(values)
     this.props.navigation.goBack(null)
   }
+  
+  confirmDelete = (index) => {
+    Alert.alert(
+      'Delete '+this.props.subjects[index].name+'?',
+      null,
+      [
+        {text: 'Confirm', onPress: () => this.deleteSubject(index)},
+        {text: 'Cancel'},
+      ],
+      { cancelable: false }
+    )
+  }
+
+  deleteSubject = (index) => {
+    this.props.removeSubject(index)
+  }
 
   render() {
     return (
@@ -116,7 +132,8 @@ export default class SubjectList extends Component {
                   null,
                   [
                     {text: 'Edit', onPress: () => this.edit(subject, index)},
-                    {text: 'Cancel'}
+                    {text: 'Delete', onPress: () => this.confirmDelete(index)},
+                    {text: 'Cancel'},
                   ],
                   { cancelable: false }
                 )}>

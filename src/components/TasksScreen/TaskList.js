@@ -71,7 +71,6 @@ export default class TaskList extends Component {
 
   deleteTask = (index) => {
     this.props.removeTask(index)
-    this.props.navigation.goBack(null)
   }
 
   render() {

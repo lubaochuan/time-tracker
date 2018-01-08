@@ -88,7 +88,23 @@ export default class StudentList extends Component {
       this.props.navigation.goBack(null)
     }
   }
+
+  confirmDelete = (index) => {
+    Alert.alert(
+      'Delete '+this.props.students[index].name+'?',
+      null,
+      [
+        {text: 'Confirm', onPress: () => this.deleteStudent(index)},
+        {text: 'Cancel'},
+      ],
+      { cancelable: false }
+    )
+  }
   
+  deleteStudent = (index) => {
+    this.props.removeStudent(index)
+  }
+
   render() {
     return (
       <Container style={{backgroundColor: "#FFF"}}>
@@ -104,7 +120,8 @@ export default class StudentList extends Component {
                   null,
                   [
                     {text: 'Edit', onPress: () => this.edit(student, index)},
-                    {text: 'Cancel'}
+                    {text: 'Delete', onPress: () => this.confirmDelete(index)},
+                    {text: 'Cancel'},
                   ],
                   { cancelable: false }
                 )}>
