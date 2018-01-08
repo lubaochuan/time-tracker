@@ -30,8 +30,9 @@ export default class SubjectList extends Component {
     header: (
       <Header>
         <Left>
-          <Button transparent onPress={() => navigation.goBack()}>
+          <Button transparent iconLeft onPress={() => navigation.goBack()}>
             <Icon name="arrow-back" />
+            <Text>Back</Text>
           </Button>
         </Left>
         <Body>
