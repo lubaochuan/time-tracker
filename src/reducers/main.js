@@ -28,7 +28,9 @@ function compare(a, b) {
 export const main = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_TASK':
-      newTasks = [...state.tasks, action.payload]
+      /* add new task to front so that tasks added on the same day
+         are sorted in order of addition */
+      newTasks = [action.payload, ...state.tasks]
       newTasks = newTasks.sort(compare)
       return {
         ...state,

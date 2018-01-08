@@ -91,11 +91,10 @@ export default class StudentList extends Component {
   
   render() {
     return (
-      <Container>
+      <Container style={{backgroundColor: "#FFF"}}>
         <Content>
-          <List>
             {this.props.students.map((student, index) =>
-            <ListItem
+            <ListItem icon
               disabled={this.state.disabled}
               key={index}
               onPress={() => this.pickSubject(student)}
@@ -109,6 +108,11 @@ export default class StudentList extends Component {
                   ],
                   { cancelable: false }
                 )}>
+              <Left>
+                <Button style={{ backgroundColor: "#FF9501" }}>
+                  <Icon active name="person" />
+                </Button>
+              </Left>
               <Body>
                 <Text>{student.name}</Text>
               </Body>
@@ -116,10 +120,9 @@ export default class StudentList extends Component {
                 <Icon name="arrow-forward" />
               </Right>
             </ListItem>)}
-          </List>
         </Content>
 
-        <Button block onPress={() => this.edit({}, -1)}>
+        <Button full onPress={() => this.edit({}, -1)}>
           <Text>Add New Student</Text>
         </Button>
       </Container>

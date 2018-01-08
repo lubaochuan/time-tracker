@@ -76,7 +76,7 @@ export default class TaskList extends Component {
 
   render() {
     return (
-      <Container>
+      <Container style={{backgroundColor: "#FFF"}}>
         <Content>
           <List>
           {this.props.tasks.map((task, index) =>

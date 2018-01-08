@@ -11,7 +11,6 @@ function isNormalInteger(str) {
 
 const validate = values => {
   const error = {};
-  error.duration = ''
   
   var duration = values.duration
   if(values.duration === undefined){
@@ -19,7 +18,8 @@ const validate = values => {
   }
 
   if(!isNormalInteger(duration)){
-    error.duration = 'must be integer'
+    /* error.duration = 'must be integer' */
+    error.duration = ' '
   }
   
   return error

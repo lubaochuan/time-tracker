@@ -53,13 +53,18 @@ export default class StudentList extends Component {
 
   render() {
     return (
-      <Container>
+      <Container style={{backgroundColor: "#FFF"}}>
         <Content>
           <List>
             {this.props.students.map((student, index) =>
-            <ListItem
+            <ListItem icon
               key={index}
               onPress={() => this.pickStudent(student)}>
+              <Left>
+                <Button style={{ backgroundColor: "#FF9501" }}>
+                  <Icon active name="person" />
+                </Button>
+              </Left>
               <Body>
                 <Text>{student.name}</Text>
               </Body>

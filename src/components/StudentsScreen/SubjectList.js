@@ -103,11 +103,11 @@ export default class SubjectList extends Component {
 
   render() {
     return (
-      <Container>
+      <Container style={{backgroundColor: "#FFF"}}>
         <Content>
           <List>
             {this.props.subjects.map((subject, index) =>
-            <ListItem
+            <ListItem icon
               key={index}
               onPress={() => this.newTask(this.props.student, subject)}
               onLongPress={() =>
@@ -120,6 +120,11 @@ export default class SubjectList extends Component {
                   ],
                   { cancelable: false }
                 )}>
+              <Left>
+                <Button style={{ backgroundColor: "#007AFF" }}>
+                  <Icon active name="book" />
+                </Button>
+              </Left>
               <Body>
                 <Text>{subject.name}</Text>
               </Body>
@@ -130,7 +135,7 @@ export default class SubjectList extends Component {
           </List>
         </Content>
 
-        <Button block onPress={() => this.edit({}, -1)}>
+        <Button full onPress={() => this.edit({}, -1)}>
           <Text>Add New Subject</Text>
         </Button>
       </Container>
