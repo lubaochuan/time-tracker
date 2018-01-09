@@ -3,19 +3,34 @@ import { Container, Body, Content, Header, Left, Right, Icon, Title,
   Button, Text } from 'native-base'
 import Mailer from 'react-native-mail'
 
-export default class TaskExport extends React.Component {
+/*
+[
+{
+  {'month':'2017-10'}
+  {'subjects':[{'subject':'Math', 'total':50}, {'subject':'Art', 'total':100}]},
+  {'core':50},
+  {'overall':150}
+},
+]
+*/
+export default class ReportExport extends React.Component {
   constructor(props){
     super(props)
 
-    result = 'student, subject, date, note \n'
-    props.tasks.forEach((task) =>
-      result += task.student+', '+task.subject+', '+task.date+', "'+task.note+'"\n'
-    )
+    result = 'Report for '+this.props.student.name+'\n\n'
+    props.monthes.forEach((month) => {
+      result += 'month: ' + month.month + '\n'
+      month.subjects.forEach((subject) =>
+        result += subject.subject+": "+subject.total+' hours\n'
+      )
+      result += 'Core Subjects: '+month.core+' hours\n'
+      result += 'Other Subjects: '+month.othertotal+' hours\n\n'
+    })
     console.log(result)
     this.state = {'result': result}
   }
 
-  static navigationOptions = ({ navigation, tasks }) => ({
+  static navigationOptions = ({ navigation }) => ({
     header: (
       <Header>
         <Left>
@@ -25,7 +40,7 @@ export default class TaskExport extends React.Component {
           </Button>
         </Left>
         <Body>
-          <Title>Export All Records</Title>
+          <Title>Export</Title>
         </Body>
         <Right />
       </Header>

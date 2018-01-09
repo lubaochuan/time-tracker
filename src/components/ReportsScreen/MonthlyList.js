@@ -70,7 +70,7 @@ export default class MonthlyList extends Component {
         subs = []
         Object.keys(subjects).forEach(subject => {
           total = subjects[subject].reduce((a, b) => a+b.duration, 0)
-          subs.push({'subject':subject, 'total':total})
+          subs.push({'subject':subject, 'total':minutesToHours(total)})
           monthTotal += total
           if (cores.indexOf(subject) > -1){
             core += total
@@ -78,11 +78,14 @@ export default class MonthlyList extends Component {
         })
         all.push({'month':month,
                   'subjects':subs,
-                  'core':core,
-                  'overall':monthTotal,})
+                  'core':minutesToHours(core),
+                  'othertotal':minutesToHours(monthTotal-core),})
     })
     console.log(JSON.stringify(all))
-    this.state = {monthes: all}
+    this.state = {
+      monthes: all,
+      isNavigating: false,
+    }
 /*
 [
 {
@@ -95,6 +98,20 @@ export default class MonthlyList extends Component {
   
 */
   }
+
+  // avoid double taps
+  toggleNavigation() {
+    this.state.isNavigating = false
+  }
+
+  navigate(go){
+    if (this.state.isNavigating == false) {
+      this.state.isNavigating = true
+      go()
+      setTimeout(this.toggleNavigation.bind(this), 500)
+    }
+  }
+
 
   static propTypes = {
     updateTask: PropTypes.func,
@@ -110,6 +127,12 @@ export default class MonthlyList extends Component {
       </Text>)
   }
 
+  exportReport(monthes) {
+    console.log("to exort")
+    this.navigate(()=>
+      this.props.navigation.navigate('ReportExport', {student:this.props.student, monthes}))
+  }
+
   render() {
     return (
       <Container>
@@ -123,16 +146,19 @@ export default class MonthlyList extends Component {
             <Body>
               {item.subjects.map((item, index) =>
               <Text key={index}>
-                {item.subject}: {minutesToHours(item.total)} hrs
+                {item.subject}: {item.total} hrs
                 ({item.total} mins)
               </Text>)}
               <Text> </Text>
-              <Text>Core Subjects: {minutesToHours(item.core)} hrs</Text>
-              <Text>Other Subjects: {minutesToHours(item.overall - item.core)} hrs</Text>
+              <Text>Core Subjects: {item.core} hrs</Text>
+              <Text>Other Subjects: {item.othertotal} hrs</Text>
             </Body>
           </CardItem>
         </Card>)}
         </Content>
+        <Button full onPress={() => this.exportReport(this.state.monthes)}>
+          <Text>Export Report</Text>
+        </Button>
       </Container>
     )
   }
