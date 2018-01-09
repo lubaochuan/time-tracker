@@ -83,6 +83,17 @@ export default class MonthlyList extends Component {
     })
     console.log(JSON.stringify(all))
     this.state = {monthes: all}
+/*
+[
+{
+  {'month':'2017-10'}
+  {'subjects':[{'subject':'Math', 'total':50}, {'subject':'Art', 'total':100}]},
+  {'core':50},
+  {'overall':150}
+},
+]
+  
+*/
   }
 
   static propTypes = {

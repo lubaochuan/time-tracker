@@ -72,6 +72,12 @@ export default class TaskList extends Component {
   deleteTask = (index) => {
     this.props.removeTask(index)
   }
+  
+  exportTasks(tasks) {
+    console.log("to exort")
+    this.navigate(()=>
+      this.props.navigation.navigate('TaskExport', {tasks}))
+  }
 
   render() {
     return (
@@ -104,6 +110,9 @@ export default class TaskList extends Component {
           </ListItem>)}
           </List>
         </Content>
+        <Button full onPress={() => this.exportTasks(this.props.tasks)}>
+          <Text>Export All Records</Text>
+        </Button>
       </Container>
     )
   }

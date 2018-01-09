@@ -45,7 +45,7 @@ class TaskEdit extends React.Component {
         <Right />
       </Header>
     )
-  });
+  })
 
   renderInput = ({ input, label, placeholder, type, meta: { touched, error, warning } })=>{
     var hasError= false;
