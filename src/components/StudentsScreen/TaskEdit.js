@@ -55,8 +55,9 @@ class TaskEdit extends React.Component {
     return(
       <Item stackedLabel error= {hasError}>
         <Label>{label}</Label>
-        <Input {...input} placeholder={placeholder}/>
-        {hasError ? <Text>{error}</Text> : <Text />}
+        <Input {...input} placeholder={placeholder}
+          style={{ backgroundColor: "#FFF" }}/>
+          {hasError ? <Text>{error}</Text> : <Text />}
       </Item>
     )
   }
@@ -69,6 +70,7 @@ class TaskEdit extends React.Component {
       placeholder="Select One"
       selectedValue={ value }
       onValueChange={ value => onChange(value) }
+      style={{ backgroundColor: "#FFF" }}
       { ...inputProps }
       { ...pickerProps }
     >
@@ -135,7 +137,8 @@ class TaskEdit extends React.Component {
             label="Note"
             placeholder="Enter note here"
             component={this.renderInput} />
-          <Button block rounded primary onPress={handleSubmit}>
+          <Button block rounded primary style={{ marginBottom:10 }}
+            onPress={handleSubmit}>
             <Text>Save</Text>
           </Button>
           <Button block rounded bordered primary onPress={()=>this.props.navigation.goBack(null)}>

@@ -59,11 +59,10 @@ export default class SubjectList extends Component {
 
   update = (values) => {
     console.log('Submitted!', JSON.stringify(values))
-    values.name = values.name.trim()
-    
+    name = values.name.trim()
     if(values.index < 0){
       // ensure student names are unique
-      if (this.props.subjects.map(x => x.name===values.name).reduce((a,b)=>a||b)){
+      if (this.props.subjects.map(subject=>subject.name).indexOf(name) > -1){
         Alert.alert(
           'Subject: '+name+" already exist.",
           null,
@@ -86,8 +85,8 @@ export default class SubjectList extends Component {
 
   newTask(student, subject) {
     this.navigate(()=>{
-    students = this.props.students.map(item => item.name)
-    subjects = this.props.subjects.map(item => item.name)
+    students = this.props.students.map(student=>student.name)
+    subjects = this.props.subjects.map(subject=>subject.name)
     edit = false
     this.props.navigation.navigate(
       'TaskEdit',

@@ -52,7 +52,8 @@ class StudentEdit extends Component {
     return(
       <Item stackedLabel error= {hasError}>
         <Label>{label}</Label>
-        <Input {...input} placeholder={placeholder}/>
+        <Input {...input} placeholder={placeholder}
+          regular style={{ backgroundColor: "#FFF" }}/>
         {hasError ? <Text>{error}</Text> : <Text />}
       </Item>
     )
@@ -65,10 +66,11 @@ class StudentEdit extends Component {
       <Container>
         <Content padder>
           <Field name='name'
-            label='Name'
+            label='Student Name'
             placeholder='Enter name here'
             component={this.renderInput} />
-          <Button block rounded primary onPress={handleSubmit}>
+          <Button block rounded primary style={{ marginBottom:10 }}
+            onPress={handleSubmit}>
             <Text>Save</Text>
           </Button>
           <Button block rounded bordered primary onPress={()=>this.props.navigation.goBack(null)}>

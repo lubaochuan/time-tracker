@@ -50,8 +50,8 @@ export default class TaskList extends Component {
 
   editTask(task, index) {
     this.navigate(()=>{
-    students = this.props.students.map(item => item.name)
-    subjects = this.props.subjects.map(item => item.name)
+    students = this.props.students.map(student=>student.name)
+    subjects = this.props.subjects.map(subject=>subject.name)
 
     // convert number type to string type
     duration = {duration:task.duration.toString()}

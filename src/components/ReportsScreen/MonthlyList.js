@@ -147,7 +147,6 @@ export default class MonthlyList extends Component {
               {item.subjects.map((item, index) =>
               <Text key={index}>
                 {item.subject}: {item.total} hrs
-                ({item.total} mins)
               </Text>)}
               <Text> </Text>
               <Text>Core Subjects: {item.core} hrs</Text>

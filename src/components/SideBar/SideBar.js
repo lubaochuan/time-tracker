@@ -5,9 +5,9 @@ import { Container, Content, Text, List, ListItem, Left, Icon } from "native-bas
 
 const routes = [
   {
-    name: "Add Record",
+    name: "Home",
     route: "Add Record",
-    icon: "add",
+    icon: "home",
     bg: "#cc0000",
   },
   {

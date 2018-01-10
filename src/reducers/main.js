@@ -65,6 +65,8 @@ export const main = (state = initialState, action) => {
         students: [...state.students, action.payload],
       }
     case 'UPDATE_STUDENT':
+      oldname = state.students[action.index].name
+      newname = action.payload.name
       return {
         ...state,
         students: state.students.map(
@@ -73,6 +75,15 @@ export const main = (state = initialState, action) => {
               return action.payload
             }else{
               return student
+            }
+          }),
+        /* propagate name change to all tasks */
+        tasks: state.tasks.map(
+          (task, index) => {
+            if(task.student === oldname){
+              return {...task, student:newname}
+            }else{
+              return task
             }
           }),
       }
@@ -92,6 +103,8 @@ export const main = (state = initialState, action) => {
         subjects: [...state.subjects, action.payload],
       }
     case 'UPDATE_SUBJECT':
+      oldname = state.subjects[action.index].name
+      newname = action.payload.name
       return {
         ...state,
         subjects: state.subjects.map(
@@ -101,7 +114,16 @@ export const main = (state = initialState, action) => {
             }else{
               return subject
             }
-          })
+          }),
+        /* propagate subject change to all tasks */
+        tasks: state.tasks.map(
+          (task, index) => {
+            if(task.subject === oldname){
+              return {...task, subject:newname}
+            }else{
+              return task
+            }
+          }),
       }
     case 'REMOVE_SUBJECT':
       return { ...state,

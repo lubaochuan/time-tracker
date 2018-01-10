@@ -39,7 +39,7 @@ class DeleteConfirm extends Component {
     return(
       <Item stackedLabel error= {hasError}>
         <Label>{label}</Label>
-        <Input {...input} placeholder={placeholder}
+        <Input {...input} placeholder={placeholder} style={{ backgroundColor: "#FFF" }}
           onChangeText={(text)=>{
             if(text == this.props.title){
               this.setState({active: true})
