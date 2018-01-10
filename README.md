@@ -10,4 +10,5 @@ npm install react-navigation --save
 npm install react-navigation-props-mapper --save
 npm install react-native-datepicker --save
 npm install moment --save
+npm install react-native-mail --save
 ```
