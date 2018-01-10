@@ -27,7 +27,7 @@ class SubjectEdit extends Component {
     super(props)
   }
 
-  static navigationOptions = ({ navigation, subject, index }) => ({
+  static navigationOptions = ({ navigation, index }) => ({
     header: (
       <Header>
         <Left>

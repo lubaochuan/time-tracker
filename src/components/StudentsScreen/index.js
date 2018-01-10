@@ -3,6 +3,7 @@ import React, { Component } from "react"
 import StudentsStackNavigator from './StudentsStackNavigator'
 import TasksStackNavigator from '../TasksScreen/TasksStackNavigator'
 import ReportsStackNavigator from '../ReportsScreen/ReportsStackNavigator'
+import SettingsStackNavigator from '../SettingsScreen/SettingsStackNavigator'
 import SideBar from "../SideBar/SideBar.js"
 import { DrawerNavigator } from "react-navigation"
 
@@ -11,6 +12,7 @@ const StudentsScreenRouter = DrawerNavigator(
     'Add Record': { screen: StudentsStackNavigator },
     'All Records': { screen: TasksStackNavigator },
     Reports: { screen: ReportsStackNavigator },
+    Settings: { screen: SettingsStackNavigator },
   },
   {
     contentComponent: props => <SideBar {...props} />,

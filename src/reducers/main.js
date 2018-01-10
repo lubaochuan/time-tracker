@@ -54,6 +54,11 @@ export const main = (state = initialState, action) => {
         ...state,
         tasks: [...state.tasks.slice(0, action.index), ...state.tasks.slice(action.index + 1)],
       }
+    case 'REMOVE_ALL_TASKS':
+      return {
+        ...state,
+        tasks: [],
+      }
 
     case 'ADD_STUDENT':
       return { ...state,
@@ -76,6 +81,11 @@ export const main = (state = initialState, action) => {
         students: [...state.students.slice(0, action.index),
           ...state.students.slice(action.index + 1)],
       }
+    case 'REMOVE_ALL_STUDENTS':
+      return {
+        ...state,
+        students: [],
+      }
 
     case 'ADD_SUBJECT':
       return { ...state,
@@ -97,6 +107,11 @@ export const main = (state = initialState, action) => {
       return { ...state,
         subjects: [...state.subjects.slice(0, action.index),
           ...state.subjects.slice(action.index + 1)],
+      }
+    case 'REMOVE_ALL_SUBJECTS':
+      return {
+        ...state,
+        subjects: [],
       }
     default:
   }

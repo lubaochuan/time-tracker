@@ -20,6 +20,12 @@ export function removeTask(index) {
   }
 }
 
+export function removeAllTasks() {
+  return {
+    type: 'REMOVE_ALL_TASKS',
+  }
+}
+
 export function addSubject(payload) {
   return {
     type: 'ADD_SUBJECT',
@@ -42,6 +48,12 @@ export function removeSubject(index) {
   }
 }
 
+export function removeAllSubjects() {
+  return {
+    type: 'REMOVE_ALL_SUBJECTS',
+  }
+}
+
 export function addStudent(payload) {
   return {
     type: 'ADD_STUDENT',
@@ -61,5 +73,11 @@ export function removeStudent(index) {
   return {
     type: 'REMOVE_STUDENT',
     index,
+  }
+}
+
+export function removeAllStudents() {
+  return {
+    type: 'REMOVE_ALL_STUDENTS',
   }
 }

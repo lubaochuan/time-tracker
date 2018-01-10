@@ -21,7 +21,13 @@ const routes = [
     route: "Reports",
     icon: "albums",
     bg: "#48525D"
-  }
+  },
+  {
+    name: "Settings",
+    route: "Settings",
+    icon: "settings",
+    bg: "#48525D"
+  },
 ]
 
 export default class SideBar extends Component {
