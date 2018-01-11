@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "time-tracker",
-    "description": "This project is really great.",
+    "name": "Time Tracker",
+    "description": "For homeschool moms to track learning time.",
     "slug": "time-tracker",
     "privacy": "public",
     "sdkVersion": "24.0.0",
@@ -15,7 +15,10 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "org.createdtolearn.timetracker"
+    },
+    "android": {
+      "package": "org.createdtolearn.timetracker"
     }
   }
 }

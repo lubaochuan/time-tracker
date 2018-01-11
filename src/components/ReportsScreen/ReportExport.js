@@ -80,7 +80,9 @@ export default class ReportExport extends React.Component {
         <Content>
           <Text selectable={true}>{this.state.result}</Text>
         </Content>
-        <Button full onPress={this.handleEmail}>
+        <Button full
+        /*  onPress={this.handleEmail}*/
+        >
           <Text>Email Me</Text>
         </Button>
       </Container>
