@@ -1,43 +1,44 @@
 import React, { Component } from 'react'
+import { AppLoading, Font } from 'expo'
 import { createStore,  applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { createLogger } from 'redux-logger'
-import { persistStore, persistCombineReducers } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import { persistStore, autoRehydrate } from 'redux-persist'
+import { AsyncStorage } from 'react-native'
 import allReducers from './reducers/index'
 import StudentsScreen from "./components/StudentsScreen/index.js"
 
-const config = {
-  key: 'root',
-  blacklist: ['form'],
-  storage,
-}
-
-const reducer = persistCombineReducers(config, allReducers)
 const logger = createLogger()
-const store = createStore(allReducers, applyMiddleware(logger))
-persistStore(store)
+const store = createStore(allReducers, applyMiddleware(logger), autoRehydrate())
 
 export default class Index extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isReady: false
-    }
+  state = {
+    isReady: false
   }
 
   async componentWillMount() {
-    await Expo.Font.loadAsync({
+    await Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
       Ionicons: require("native-base/Fonts/Ionicons.ttf")
     })
-    this.setState({ isReady: true })
+  }
+  
+  componentDidMount() {
+    persistStore(
+      store,
+      {
+        storage: AsyncStorage
+      },
+      () => {
+        this.setState({ isReady: true })
+      }
+    )
   }
 
   render() {
     if (!this.state.isReady) {
-      return <Expo.AppLoading />
+      return <AppLoading />
     }
     return (
       <Provider store={store} >

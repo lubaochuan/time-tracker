@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Body, Content, Header, Left, Right, Icon, Title,
-  Button, Text } from 'native-base'
+  Button, Text, Card, CardItem } from 'native-base'
 import Mailer from 'react-native-mail'
 
 export default class TaskExport extends React.Component {
@@ -63,7 +63,13 @@ export default class TaskExport extends React.Component {
     return (
       <Container>
         <Content>
-          <Text selectable={true}>{this.state.result}</Text>
+        <Card>
+          <CardItem>
+            <Body>
+              <Text selectable={true}>{this.state.result}</Text>
+            </Body>
+          </CardItem>
+        </Card>
         </Content>
         <Button full
           /*onPress={this.handleEmail}*/
