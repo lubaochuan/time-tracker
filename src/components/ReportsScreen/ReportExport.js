@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Container, Body, Content, Header, Left, Right, Icon, Title,
   Button, Text, Card, CardItem } from 'native-base'
-import Mailer from 'react-native-mail'
+import Communications from 'react-native-communications'
+import { Platform } from 'react-native'
 
 /*
 [
@@ -36,7 +37,7 @@ export default class ReportExport extends React.Component {
         <Left>
           <Button transparent iconLeft onPress={() => navigation.goBack()}>
             <Icon name="arrow-back" />
-            <Text>Back</Text>
+            <Text>{Platform.OS === 'ios' ? 'Back':''}</Text>
           </Button>
         </Left>
         <Body>
@@ -46,33 +47,6 @@ export default class ReportExport extends React.Component {
       </Header>
     )
   })
-
-  handleEmail = () => {
-    Mailer.mail({
-      subject: 'need help',
-      recipients: ['support@example.com'],
-      ccRecipients: ['supportCC@example.com'],
-      bccRecipients: ['supportBCC@example.com'],
-      body: '<b>A Bold Body</b>',
-      isHTML: true,
-      attachment: {
-        path: '',  // The absolute path of the file from which to read data.
-        type: '',   // Mime Type: jpg, png, doc, ppt, html, pdf
-        name: '',   // Optional: Custom filename for attachment
-      }
-    }, (error, event) => {
-      Alert.alert(
-        error,
-        event,
-        [
-          {text: 'Ok', onPress: () => console.log('OK: Email Error Response')},
-          {text: 'Cancel', onPress: () => console.log('CANCEL: Email Error Response')}
-        ],
-        { cancelable: true }
-      )
-    })
-    this.props.navigation.goBack(null)
-  }
 
   render() {
     return (
@@ -86,9 +60,10 @@ export default class ReportExport extends React.Component {
           </CardItem>
         </Card>
         </Content>
-        <Button full
-        /*  onPress={this.handleEmail}*/
-        >
+        <Button full onPress={() =>
+          Communications.email([
+            ''],null,null,
+            'Monthly Records for '+this.props.student.name, this.state.result)}>
           <Text>Email Me</Text>
         </Button>
       </Container>

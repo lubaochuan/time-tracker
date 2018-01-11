@@ -1,6 +1,7 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
+import { Platform } from 'react-native'
 import { Container, Card, CardItem, Body, Content, Header, Left, Right, Icon,
-  Title, Button, Text, ListItem, Item, Input, Label, Picker } from "native-base"
+  Title, Button, Text, ListItem, Item, Input, Label, Picker } from 'native-base'
 import { Field, reduxForm } from 'redux-form'
 import DatePicker from 'react-native-datepicker'
 import moment from 'moment'
@@ -36,7 +37,7 @@ class TaskEdit extends React.Component {
         <Left>
           <Button transparent iconLeft onPress={() => navigation.goBack()}>
             <Icon name="arrow-back" />
-            <Text>Back</Text>
+            <Text>{Platform.OS === 'ios' ? 'Back':''}</Text>
           </Button>
         </Left>
         <Body>
@@ -71,6 +72,7 @@ class TaskEdit extends React.Component {
       selectedValue={ value }
       onValueChange={ value => onChange(value) }
       style={{ backgroundColor: "#FFF" }}
+      style={{ width:(Platform.OS === 'ios') ? undefined : 200 }}
       { ...inputProps }
       { ...pickerProps }
     >
@@ -131,7 +133,6 @@ class TaskEdit extends React.Component {
           <Field name="duration"
             label="Duration (minutes)"
             placeholder="Enter duration here"
-            parse={value => Number(value)}
             component={this.renderInput} />
           <Field name="note"
             label="Note"

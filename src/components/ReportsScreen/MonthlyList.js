@@ -3,6 +3,7 @@ import { Container, Header, Title, Content, InputGroup, Input, List, Button,
   Body, Icon, Left, Right, Text, ListItem, Card, CardItem } from 'native-base'
 import { Alert } from 'react-native'
 import PropTypes from 'prop-types'
+import { Platform } from 'react-native'
 
 Array.prototype.groupBy = function(prop) {
   return this.reduce(function(groups, item) {
@@ -31,7 +32,7 @@ export default class MonthlyList extends Component {
         <Left>
           <Button transparent iconLeft onPress={() => navigation.goBack()}>
             <Icon name="arrow-back" />
-            <Text>Back</Text>
+            <Text>{Platform.OS === 'ios' ? 'Back':''}</Text>
           </Button>
         </Left>
         <Body>
@@ -55,7 +56,7 @@ export default class MonthlyList extends Component {
       {
         subject: task.subject,
         month: task.date.substring(0, 7), // keep 2017-12
-        duration: task.duration
+        duration: Number(task.duration)
       }
       return obj
     })

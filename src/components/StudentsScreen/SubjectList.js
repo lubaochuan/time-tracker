@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Platform } from 'react-native'
 import { Container, Header, Title, Content, InputGroup, Input, List, Button,
   Body, Icon, Left, Right, ListItem, Text } from 'native-base'
 import { Alert } from 'react-native'
@@ -32,7 +33,7 @@ export default class SubjectList extends Component {
         <Left>
           <Button iconLeft transparent onPress={() => navigation.goBack()}>
             <Icon name="arrow-back" />
-            <Text>Back</Text>
+            <Text>{Platform.OS === 'ios' ? 'Back':''}</Text>
           </Button>
         </Left>
         <Body>
@@ -91,7 +92,8 @@ export default class SubjectList extends Component {
     this.props.navigation.navigate(
       'TaskEdit',
       {initialValues: {student: student.name, subject: subject.name,
-        date: new moment().format("YYYY-MM-DD")}, edit,
+        date: new moment().format("YYYY-MM-DD"),
+        note: ''}, edit,
         students, subjects, onSubmit: this.addTask})})
   }
 

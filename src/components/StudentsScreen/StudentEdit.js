@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { Platform } from 'react-native'
 import { Container, Card, CardItem, Body, Content, Header, Left, Right, Icon,
   Title, Button, Text, Item, Input, Label, Picker } from "native-base"
 import { Field, reduxForm } from 'redux-form'
@@ -33,7 +34,7 @@ class StudentEdit extends Component {
         <Left>
           <Button transparent iconLeft onPress={() => navigation.goBack()}>
             <Icon name="arrow-back" />
-            <Text>Back</Text>
+            <Text>{Platform.OS === 'ios' ? 'Back':''}</Text>
           </Button>
         </Left>
         <Body>
