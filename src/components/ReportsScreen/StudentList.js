@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Header, Title, Content, InputGroup, Input, List, Button,
   Body, Icon, Left, Right, ListItem, Text } from 'native-base'
-import { Alert } from 'react-native'
 import PropTypes from 'prop-types'
 
 export default class StudentList extends Component {

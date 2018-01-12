@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Header, Title, Content, InputGroup, Input, List, Button,
   Body, Icon, Left, Right, Text, ListItem, Card, CardItem } from 'native-base'
-import { Alert } from 'react-native'
 import PropTypes from 'prop-types'
 import { Platform } from 'react-native'
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Platform } from 'react-native'
 import { Container, Card, CardItem, Body, Content, Header, Left, Right, Icon,
-  Title, Button, Text, Item, Input, Label, Picker } from "native-base"
+  Title, Button, Text, Item, Input, Label, Picker, Form } from "native-base"
 import { Field, reduxForm } from 'redux-form'
 
 function isNormalInteger(str) {
@@ -51,11 +51,10 @@ class StudentEdit extends Component {
       hasError= true;
     }
     return(
-      <Item stackedLabel error= {hasError}>
-        <Label>{label}</Label>
+      <Item error= {hasError}>
         <Input {...input} placeholder={placeholder}
           regular style={{ backgroundColor: "#FFF" }}/>
-        {hasError ? <Text>{error}</Text> : <Text />}
+          {hasError ? <Text>{error}</Text> : <Text />}
       </Item>
     )
   }
@@ -66,11 +65,13 @@ class StudentEdit extends Component {
     return (
       <Container>
         <Content padder>
+          <Form>
           <Field name='name'
-            label='Student Name'
-            placeholder='Enter name here'
+            placeholder='Student Name'
             component={this.renderInput} />
-          <Button block rounded primary style={{ marginBottom:10 }}
+          </Form>
+          <Button block rounded primary
+            style={{ marginBottom:10, marginTop:10 }}
             onPress={handleSubmit}>
             <Text>Save</Text>
           </Button>
@@ -85,5 +86,5 @@ class StudentEdit extends Component {
 
 export default reduxForm({
   form: 'student',
-  validate
+  /* validate */
 })(StudentEdit)

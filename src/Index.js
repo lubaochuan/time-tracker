@@ -28,7 +28,8 @@ export default class Index extends Component {
     persistStore(
       store,
       {
-        storage: AsyncStorage
+        storage: AsyncStorage,
+        whitelist: ['main']
       },
       () => {
         this.setState({ isReady: true })

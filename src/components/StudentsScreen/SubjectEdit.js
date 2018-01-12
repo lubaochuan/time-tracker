@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Platform } from 'react-native'
 import { Container, Card, CardItem, Body, Content, Header, Left, Right, Icon,
-  Title, Button, Text, ListItem, Item, Input, Label, Picker, CheckBox } from "native-base"
+  Title, Button, Text, ListItem, Item, Input, Label, Picker, CheckBox, Form } from "native-base"
 import { Field, reduxForm } from 'redux-form'
 
 function isNormalInteger(str) {
@@ -51,8 +51,7 @@ class SubjectEdit extends Component {
       hasError= true;
     }
     return(
-      <Item stackedLabel error= {hasError}>
-        <Label>{label}</Label>
+      <Item error= {hasError}>
         <Input {...input} placeholder={placeholder}
           style={{ backgroundColor: "#FFF" }}/>
           {hasError ? <Text>{error}</Text> : <Text />}
@@ -61,12 +60,14 @@ class SubjectEdit extends Component {
   }
   
   renderCheckbox = ({ input, label, custom }) => (
-    <Item button style={{ marginBottom:20 }}
+    <Item button style={{ marginBottom:20, marginTop:20 }}
       onPress={() => input.onChange(!input.value)}>
-      <CheckBox {...input} checked={input.value}
-        onPress={() => input.onChange(!input.value)} />
-      <Body>
+      <Left>
         <Text>{label}</Text>
+      </Left>
+      <Body>
+        <CheckBox {...input} checked={input.value}
+          onPress={() => input.onChange(!input.value)} />
       </Body>
     </Item>
   )
@@ -77,12 +78,14 @@ class SubjectEdit extends Component {
     return (
       <Container>
         <Content padder>
+          <Form>
           <Field name='name'
-            label='Subject'
-            placeholder='Enter subject name'
+            placeholder='Subject'
             component={this.renderInput} />
           <Field name='core' label='Core Subject' component={this.renderCheckbox} />
-          <Button block rounded primary style={{ marginBottom:10 }}
+          </Form>
+          <Button block rounded primary
+            style={{ marginBottom:10, marginTop:10 }}
             onPress={handleSubmit}>
             <Text>Save</Text>
           </Button>
@@ -98,5 +101,5 @@ class SubjectEdit extends Component {
 
 export default reduxForm({
   form: 'subject',
-  validate
+  /* validate */
 })(SubjectEdit)
