@@ -5,7 +5,7 @@ An app for tracking and reporting learning time.
 # Need
 Homeschool moms need an app to help track their kids learning time. The app needs to be simple and useful.
 * simple: Moms can record their kids' learning time quickly (at most 3 taps in less than a minute) and can forget about it.
-* useful: When moms want to know how much time their kids have spent on various subjects (or whether their goals are reached) the information is ready available in the app.
+* useful: When moms want to know how much time their kids have spent on various subjects (or whether their goals are reached) the information is readily available in the app.
 
 ## Try the app
 1. Install the "Expo" app from the App store or Google Play.
@@ -48,6 +48,11 @@ A report is a monthly summary of all learning records for a particular student.
 The settings screen gives you options to delete all students, all subjects, and all learning records. You must type some text to confirm the deletion. This allows you purge the data in your app after you have exported the reports and no longer need the records.
 
 ![delete](images/delete_records.gif)
+
+# Support
+Please send an email to the following address to report issues:
+
+![support](images/support_email.png)
 
 # Developers
 ## Install packages:
