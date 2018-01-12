@@ -54,7 +54,6 @@ class StudentEdit extends Component {
       <Item error= {hasError}>
         <Input {...input} placeholder={placeholder}
           regular style={{ backgroundColor: "#FFF" }}/>
-          {hasError ? <Text>{error}</Text> : <Text />}
       </Item>
     )
   }
@@ -86,5 +85,5 @@ class StudentEdit extends Component {
 
 export default reduxForm({
   form: 'student',
-  /* validate */
+  validate
 })(StudentEdit)

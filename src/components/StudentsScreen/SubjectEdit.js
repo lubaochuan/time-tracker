@@ -54,7 +54,6 @@ class SubjectEdit extends Component {
       <Item error= {hasError}>
         <Input {...input} placeholder={placeholder}
           style={{ backgroundColor: "#FFF" }}/>
-          {hasError ? <Text>{error}</Text> : <Text />}
       </Item>
     )
   }
@@ -101,5 +100,5 @@ class SubjectEdit extends Component {
 
 export default reduxForm({
   form: 'subject',
-  /* validate */
+  validate
 })(SubjectEdit)

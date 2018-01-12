@@ -66,11 +66,10 @@ export default class StudentList extends Component {
   }
   
   update = (values) => {
-    console.log('Submitted!', JSON.stringify(values))
     name = values.name.trim()
-    console.log("new name -"+name+"-")
+    values.name = name
     // ensure student names are unique
-    if (this.props.students.map(student=>student.name).indexOf(name) > -1){
+    if (this.props.students.map(student=>student.name.trim()).indexOf(name) > -1){
       Alert.alert(
         'Student: '+name+" already exist.",
         null,
@@ -80,7 +79,6 @@ export default class StudentList extends Component {
         { cancelable: false }
       )
     }else{
-      values.name = name
       if(values.index < 0){
         this.props.addStudent(values)
       }else{
