@@ -38,7 +38,7 @@ class DeleteConfirm extends Component {
       hasError= true;
     }
     return(
-      <Item fixedLabel error= {hasError}>
+      <Item stackedLabel error= {hasError}>
         <Label>{label}</Label>
         <Input {...input} placeholder={placeholder}
           style={{ backgroundColor: "#FFF" }}
