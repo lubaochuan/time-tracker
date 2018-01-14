@@ -1,20 +1,7 @@
 const initialState = {
-  tasks: [
-{student: 'Esther Lu', subject: 'Math', date:'2017-12-03', duration:25, note: 'She practiced multiplication.'},
-{student: 'Esther Lu', subject: 'Math', date:'2017-12-02', duration:30, note: 'She finished this task in the morning.'},
-{student: 'Esther Lu', subject: 'Art', date:'2017-12-02', duration:30, note: 'She finished this task in the morning.'},
-{student: 'Anna Lu', subject: 'Math', date:'2017-12-01', duration:30, note: 'She finished this task in the afternoon.'},
-{student: 'Anna Lu', subject: 'Life Skills', date:'2017-12-01', duration:50, note: 'She learned to make pancakes.'},
-{student: 'Esther Lu', subject: 'Art', date:'2017-11-01', duration:30, note: 'She painted a picture.'},
-{student: 'Esther Lu', subject: 'Math', date:'2017-10-02', duration:30, note: 'She finished this task in the morning.'},
-  ],
-  students: [ {name:'Esther Lu'}, {name:'Anna Lu'} ],
-  subjects: [
-    {name: 'Math', core:true},
-    {name: 'Language', core:true},
-    {name: 'Art', core:false},
-    {name: 'Science', core:true},
-    {name: 'Life Skills', core:false}, ],
+  tasks: [],
+  students: [],
+  subjects: [],
 }
 
 function compare(a, b) {

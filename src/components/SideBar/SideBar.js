@@ -36,9 +36,7 @@ export default class SideBar extends Component {
       <Container>
         <Content>
           <Image
-            source={{
-              uri: "https://raw.githubusercontent.com/GeekyAnts/NativeBase-KitchenSink/master/assets/drawer-cover.png"
-            }}
+            source={require('./drawer-cover.png')}
             style={{
               height: 120,
               alignSelf: "stretch",
