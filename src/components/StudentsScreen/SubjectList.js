@@ -58,11 +58,29 @@ export default class SubjectList extends Component {
       {initialValues: {...subject, index}, index, onSubmit: this.update}))
   }
 
+  validUpdate(subjects, subject) {
+    name = subject.name.trim()
+    core = subject.core
+    result = false
+    // ensure subject names are unique
+    // except when it is change from core to non-core and vice versa
+    if (subjects.map(subject=>subject.name.trim()).indexOf(name) > -1){
+      subjects.forEach((subject)=>{
+        if (subject.name == name && subject.core != core){
+          result = true
+        }
+      })
+    }else{
+      result = true
+    }
+    return result;
+  }
+
   update = (values) => {
     name = values.name.trim()
     values.name = name
-    // ensure student names are unique
-    if (this.props.subjects.map(subject=>subject.name.trim()).indexOf(name) > -1){
+
+    if (!this.validUpdate(this.props.subjects, values)){
       Alert.alert(
         'Subject: '+name+" already exist.",
         null,
