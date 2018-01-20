@@ -28,7 +28,7 @@ class StudentEdit extends Component {
     super(props)
   }
 
-  static navigationOptions = ({ navigation, student, id }) => ({
+  static navigationOptions = ({ navigation }) => ({
     header: (
       <Header>
         <Left>
@@ -38,7 +38,7 @@ class StudentEdit extends Component {
           </Button>
         </Left>
         <Body>
-          <Title>{id < 0? "New":"Edit"}</Title>
+          <Title><Text>Student</Text></Title>
         </Body>
         <Right />
       </Header>

@@ -53,11 +53,11 @@ export default class StudentList extends Component {
     return
   }
 
-  edit(student, index) {
+  edit(studentName, index) {
     this.navigate(()=>
       this.props.navigation.navigate(
         'StudentEdit',
-        {initialValues: {...student, index}, index, onSubmit: this.update}))
+        {initialValues: {name:studentName, index}, index, onSubmit: this.updateStudent}))
   }
   
   pickSubject(student){
@@ -65,7 +65,7 @@ export default class StudentList extends Component {
       this.props.navigation.navigate('SubjectList', {student}))
   }
   
-  update = (values) => {
+  updateStudent = (values) => {
     name = values.name.trim()
     values.name = name
     // ensure student names are unique
@@ -80,9 +80,13 @@ export default class StudentList extends Component {
       )
     }else{
       if(values.index < 0){
+        // init empty subject array
+        delete values.index
         this.props.addStudent(values)
       }else{
-        this.props.updateStudent(values.index, values)
+        index = values.index
+        delete values.index
+        this.props.updateStudent(index, values)
       }
       this.props.navigation.goBack(null)
     }
@@ -118,15 +122,15 @@ export default class StudentList extends Component {
                   'Quick Menu',
                   null,
                   [
-                    {text: 'Edit', onPress: () => this.edit(student, index)},
+                    {text: 'Edit', onPress: () => this.edit(student.name, index)},
                     {text: 'Delete', onPress: () => this.confirmDelete(index)},
                     {text: 'Cancel'},
                   ],
                   { cancelable: false }
                 )}>
               <Left>
-                <Button style={{ backgroundColor: "#FF9501" }}>
-                  <Icon active name="person" />
+                <Button style={{ backgroundColor: '#007AFF' }}>
+                  <Icon active name='person' />
                 </Button>
               </Left>
               <Body>
@@ -138,7 +142,7 @@ export default class StudentList extends Component {
             </ListItem>)}
         </Content>
 
-        <Button full onPress={() => this.edit({}, -1)}>
+        <Button full onPress={() => this.edit('', -1)}>
           <Text>Add New Student</Text>
         </Button>
       </Container>

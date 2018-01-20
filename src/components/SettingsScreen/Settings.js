@@ -44,17 +44,17 @@ export default class Settings extends React.Component {
     )
   })
 
-  confirmDelete = (title) => {
+  confirmDelete = (title, description) => {
     this.navigate(()=>
       this.props.navigation.navigate(
         'DeleteConfirm',
-        {title, onSubmit: (values) => this.delete(title)}))
+        {title, description, onSubmit: (values) => this.delete(title)}))
   }
 
   delete = (title) => {
     switch (title) {
       case ALL_RECORDS:
-        this.props.removeAllTasks()
+        this.props.removeAllRecords()
         break
       case ALL_STUDENTS:
         this.props.removeAllStudents()
@@ -72,16 +72,19 @@ export default class Settings extends React.Component {
       <Container>
         <Content padder style={{ padding: 20 }}>
           <Button block rounded primary style={{ marginBottom:20 }}
-            onPress={() => this.confirmDelete(ALL_RECORDS)}>
+            onPress={() => this.confirmDelete(ALL_RECORDS,
+              'delete all records but keep all students and all subjects.')}>
             <Text>Delete {ALL_RECORDS}</Text>
           </Button>
           <Button block rounded primary style={{ marginBottom:20 }}
-            onPress={() => this.confirmDelete(ALL_STUDENTS)}>
-            <Text>Delete {ALL_STUDENTS}</Text>
+            onPress={() => this.confirmDelete(ALL_SUBJECTS,
+              'delete all subjects but keep all records and all students.')}>
+            <Text>Delete {ALL_SUBJECTS}</Text>
           </Button>
           <Button block rounded primary style={{ marginBottom:20 }}
-            onPress={() => this.confirmDelete(ALL_SUBJECTS)}>
-            <Text>Delete {ALL_SUBJECTS}</Text>
+            onPress={() => this.confirmDelete(ALL_STUDENTS,
+              'delete all students along with all subjects and all records.')}>
+            <Text>Delete {ALL_STUDENTS}</Text>
           </Button>
         </Content>
       </Container>

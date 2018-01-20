@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { removeAllStudents, removeAllSubjects, removeAllTasks } from '../../actions'
+import { removeAllStudents, removeAllSubjects, removeAllRecords } from '../../actions'
 import Settings from './Settings'
 
 function mapStateToProps(state) {
@@ -10,7 +10,7 @@ function mapDispatchToProps(dispatch) {
   return {
     removeAllStudents: payload => dispatch(removeAllStudents()),
     removeAllSubjects: payload => dispatch(removeAllSubjects()),
-    removeAllTasks: payload => dispatch(removeAllTasks()),
+    removeAllRecords: payload => dispatch(removeAllRecords()),
   }
 }
 

@@ -52,13 +52,13 @@ class DeleteConfirm extends Component {
   }
 
   render() {
-    const { title, handleSubmit } = this.props;
+    const { title, description, handleSubmit } = this.props;
 
     return (
       <Container>
         <Content padder>
           <Field name='confirm'
-            label={'Enter "'+title+'" to confirm'}
+            label={'Enter "'+title+'" to confirm:\n'+description}
             placeholder='Enter confirm text'
             component={this.renderInput} />
           <Button iconLeft block rounded primary danger disabled={!this.state.active}

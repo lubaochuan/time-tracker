@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Platform } from 'react-native'
+import { Alert, Platform } from 'react-native'
 import { Container, Header, Title, Content, InputGroup, Input, List, Button,
   Body, Icon, Left, Right, ListItem, Text } from 'native-base'
-import { Alert } from 'react-native'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 
@@ -27,7 +26,7 @@ export default class SubjectList extends Component {
     }
   }
 
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({ navigation, student }) => ({
     header: (
       <Header>
         <Left>
@@ -45,119 +44,129 @@ export default class SubjectList extends Component {
   })
 
   static propTypes = {
-    addStudent: PropTypes.func,
-    updateStudent: PropTypes.func,
-    removeStudent: PropTypes.func,
-    students: PropTypes.array,
+    addSubject: PropTypes.func,
+    updateSubject: PropTypes.func,
+    removeSubject: PropTypes.func,
   }
   
-  edit(subject, index) {
+  editSubject(studentName, subject, index) {
     this.navigate(()=>
     this.props.navigation.navigate(
       'SubjectEdit',
-      {initialValues: {...subject, index}, index, onSubmit: this.update}))
+      {initialValues: {...subject, index}, index, studentName, onSubmit: this.updateSubject}))
   }
 
-  validUpdate(subjects, subject) {
-    name = subject.name.trim()
-    core = subject.core
-    result = false
-    // ensure subject names are unique
-    // except when it is change from core to non-core and vice versa
-    if (subjects.map(subject=>subject.name.trim()).indexOf(name) > -1){
-      subjects.forEach((subject)=>{
-        if (subject.name == name && subject.core != core){
-          result = true
-        }
-      })
+  uniqueSubjectName(subjects, newSubject) {
+    name = newSubject.name.trim()
+    if (subjects.map(subject=>subject.name).indexOf(name) > -1){
+      return false
     }else{
-      result = true
+      return true
     }
-    return result;
   }
 
-  update = (values) => {
-    name = values.name.trim()
-    values.name = name
+  updateSubject = (values) => {
+    /* remove extra spaces */
+    subjectName = values.name.trim()
+    subjectIndex = values.index
+    delete values.index
+    values.name = subjectName
+    const { student } = this.props
 
-    if (!this.validUpdate(this.props.subjects, values)){
-      Alert.alert(
-        'Subject: '+name+" already exist.",
-        null,
-        [
-          {text: 'Cancel'}
-        ],
-        { cancelable: false }
-      )
-    }else{
-      if(values.index < 0){
-        delete values.index
-        this.props.addSubject(values)
+    if(subjectIndex < 0){
+      /* add new subject to student */
+      if (!this.uniqueSubjectName(student.subjects, values)){
+        Alert.alert(
+          'Subject: '+subjectName+" already exist.",
+          null,
+          [
+            {text: 'Cancel'}
+          ],
+          { cancelable: false }
+        )
       }else{
-        index = values.index
-        delete values.index
-        this.props.updateSubject(index, values)
+        this.props.addSubject({student: student.name, subject: values})
       }
-      this.props.navigation.goBack(null)
+    }else{
+      otherSubjects = [
+        ...student.subjects.slice(0, subjectIndex),
+        ...student.subjects.slice(subjectIndex + 1)]
+      if (!this.uniqueSubjectName(otherSubjects, values)){
+        Alert.alert(
+          'Subject: '+subjectName+" already exist.",
+          null,
+          [
+            {text: 'Cancel'}
+          ],
+          { cancelable: false }
+        )
+      }else{
+        this.props.updateSubject(subjectIndex, {student: student.name, subject: values})
+      }
     }
+    this.props.navigation.goBack(null)
   }
 
-  newTask(student, subject) {
-    this.navigate(()=>{
-    students = this.props.students.map(student=>student.name)
-    subjects = this.props.subjects.map(subject=>subject.name)
-    edit = false
-    this.props.navigation.navigate(
-      'TaskEdit',
-      {initialValues: {student: student.name, subject: subject.name,
-        date: new moment().format("YYYY-MM-DD"),
-        note: ''}, edit,
-        students, subjects, onSubmit: this.addTask})})
-  }
+  newRecord(student, subjectName) {
+    this.navigate(() => {
+      subjects = student.subjects.map(subject=>subject.name)
+      this.props.navigation.navigate(
+        'RecordEdit',
+        {initialValues: {
+          subject: subjectName, date: new moment().format("YYYY-MM-DD"), note: ''},
+        studentName: student.name,
+        subjects,
+        onSubmit: (values) => this.addRecord(student.name, values)})
+    })}
 
-  addTask = (values) => {
-    this.props.addTask(values)
+  addRecord = (studentName, values) => {
+    this.props.addRecord({student: studentName, record: values})
     this.props.navigation.goBack(null)
   }
   
   confirmDelete = (index) => {
+    studentName = this.props.student.name
+    subjectName = this.props.student.subjects[index].name
     Alert.alert(
-      'Delete '+this.props.subjects[index].name+'?',
+      'Delete '+subjectName+' for '+studentName+'?\n'+
+      'Records associated with '+subjectName+' will stay.',
       null,
       [
-        {text: 'Confirm', onPress: () => this.deleteSubject(index)},
+        {text: 'Confirm', onPress: () => this.deleteSubject(index, studentName)},
         {text: 'Cancel'},
       ],
       { cancelable: false }
     )
   }
 
-  deleteSubject = (index) => {
-    this.props.removeSubject(index)
+  deleteSubject = (index, studentName) => {
+    this.props.removeSubject(index, {student: studentName})
   }
 
   render() {
+    console.log(this.props.student.subjects)
     return (
       <Container style={{backgroundColor: "#FFF"}}>
         <Content>
           <List>
-            {this.props.subjects.map((subject, index) =>
+            {this.props.student.subjects.map((subject, index) =>
             <ListItem icon
               key={index}
-              onPress={() => this.newTask(this.props.student, subject)}
+              onPress={() => this.newRecord(this.props.student, subject.name)}
               onLongPress={() =>
                 Alert.alert(
                   'Quick Menu',
                   null,
                   [
-                    {text: 'Edit', onPress: () => this.edit(subject, index)},
+                    {text: 'Edit',
+                     onPress: () => this.editSubject(this.props.student.name, subject, index)},
                     {text: 'Delete', onPress: () => this.confirmDelete(index)},
                     {text: 'Cancel'},
                   ],
                   { cancelable: false }
                 )}>
               <Left>
-                <Button style={{ backgroundColor: "#007AFF" }}>
+                <Button style={{ backgroundColor: subject.core?'#FFD700':'#007AFF' }}>
                   <Icon active name="book" />
                 </Button>
               </Left>
@@ -171,7 +180,8 @@ export default class SubjectList extends Component {
           </List>
         </Content>
 
-        <Button full onPress={() => this.edit({core:false}, -1)}>
+        <Button full
+          onPress={() => this.editSubject(this.props.student.name, {core:false}, -1)}>
           <Text>Add New Subject</Text>
         </Button>
       </Container>

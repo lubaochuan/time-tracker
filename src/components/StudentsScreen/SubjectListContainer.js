@@ -1,13 +1,14 @@
 import { connect } from 'react-redux'
-import { addSubject, updateSubject, removeSubject, addTask } from '../../actions'
+import { addSubject, updateSubject, removeSubject, addRecord } from '../../actions'
 import SubjectList from './SubjectList'
 
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
+  currentStudent = state.main.students.find(student => {
+    return student.name == props.student.name
+  })
   return {
-    tasks: state.main.tasks,
-    students: state.main.students,
-    subjects: state.main.subjects,
+    student: currentStudent,
   }
 }
 
@@ -15,9 +16,8 @@ function mapDispatchToProps(dispatch) {
   return {
     addSubject: payload => dispatch(addSubject(payload)),
     updateSubject: (index, payload) => dispatch(updateSubject(index, payload)),
-    removeSubject: index => dispatch(removeSubject(index)),
-    addTask: payload => dispatch(addTask(payload)),
-    updateTask: (index, payload) => dispatch(updateTask(index, payload)),
+    removeSubject: (index, payload) => dispatch(removeSubject(index, payload)),
+    addRecord: payload => dispatch(addRecord(payload)),
   }
 }
 

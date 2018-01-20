@@ -3,6 +3,7 @@ import { Container, Body, Content, Header, Left, Right, Icon, Title,
   Button, Text, Card, CardItem } from 'native-base'
 import Communications from 'react-native-communications'
 import { Platform } from 'react-native'
+import { getMonthYear } from '../../helpers'
 
 /*
 [
@@ -18,9 +19,9 @@ export default class ReportExport extends React.Component {
   constructor(props){
     super(props)
 
-    result = 'Report for '+this.props.student.name+'\n\n'
+    result = 'Report for '+this.props.studentName+'\n\n'
     props.monthes.forEach((month) => {
-      result += 'month: ' + month.month + '\n'
+      result += getMonthYear(month.month) + '\n'
       month.subjects.forEach((subject) =>
         result += subject.subject+": "+subject.total+' hours\n'
       )
@@ -63,7 +64,7 @@ export default class ReportExport extends React.Component {
         <Button full onPress={() =>
           Communications.email([
             ''],null,null,
-            'Monthly Records for '+this.props.student.name, this.state.result)}>
+            'Monthly Report for '+this.props.studentName, this.state.result)}>
           <Text>Email Me</Text>
         </Button>
       </Container>

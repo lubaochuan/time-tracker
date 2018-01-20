@@ -1,28 +1,29 @@
-export function addTask(payload) {
+export function addRecord(payload) {
   return {
-    type: 'ADD_TASK',
+    type: 'ADD_RECORD',
     payload,
   }
 }
 
-export function updateTask(index, payload) {
+export function updateRecord(index, payload) {
   return {
-    type: 'UPDATE_TASK',
+    type: 'UPDATE_RECORD',
     index,
     payload,
   }
 }
 
-export function removeTask(index) {
+export function removeRecord(index, payload) {
   return {
-    type: 'REMOVE_TASK',
+    type: 'REMOVE_RECORD',
     index,
+    payload,
   }
 }
 
-export function removeAllTasks() {
+export function removeAllRecords() {
   return {
-    type: 'REMOVE_ALL_TASKS',
+    type: 'REMOVE_ALL_RECORDS',
   }
 }
 
@@ -41,10 +42,11 @@ export function updateSubject(index, payload) {
   }
 }
 
-export function removeSubject(index) {
+export function removeSubject(index, payload) {
   return {
     type: 'REMOVE_SUBJECT',
     index,
+    payload,
   }
 }
 

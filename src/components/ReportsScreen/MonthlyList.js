@@ -3,6 +3,7 @@ import { Container, Header, Title, Content, InputGroup, Input, List, Button,
   Body, Icon, Left, Right, Text, ListItem, Card, CardItem } from 'native-base'
 import PropTypes from 'prop-types'
 import { Platform } from 'react-native'
+import { getMonthName, getMonthYear } from '../../helpers'
 
 Array.prototype.groupBy = function(prop) {
   return this.reduce(function(groups, item) {
@@ -15,13 +16,6 @@ Array.prototype.groupBy = function(prop) {
 
 function minutesToHours(minutes) {
   return (minutes/60).toFixed(1)
-}
-
-monthNames = ["", "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"]
-
-function getMonthName(num) {
-  return monthNames[parseInt(num)];
 }
 
 export default class MonthlyList extends Component {
@@ -45,22 +39,22 @@ export default class MonthlyList extends Component {
   constructor(props){
     super(props)
 
-    cores = this.props.subjects.filter(subject => subject.core)
+    cores = this.props.student.subjects.filter(subject => subject.core)
     cores = cores.map(item => item.name)
 
     student = this.props.student.name
-    tasks = this.props.tasks.filter(task => task.student == student)
-    tasks = tasks.map(task => {
+    records = this.props.student.records
+    records = records.map(record => {
       obj =
       {
-        subject: task.subject,
-        month: task.date.substring(0, 7), // keep 2017-12
-        duration: Number(task.duration)
+        subject: record.subject,
+        month: record.date.substring(0, 7), // keep 2017-12
+        duration: Number(record.duration)
       }
       return obj
     })
 
-    monthes = tasks.groupBy('month')
+    monthes = records.groupBy('month')
     all = []
     Object.keys(monthes).forEach(month => {
         eachmonth = monthes[month]
@@ -128,9 +122,9 @@ export default class MonthlyList extends Component {
   }
 
   exportReport(monthes) {
-    console.log("to exort")
     this.navigate(()=>
-      this.props.navigation.navigate('ReportExport', {student:this.props.student, monthes}))
+      this.props.navigation.navigate('ReportExport',
+        {studentName:this.props.student.name, monthes}))
   }
 
   render() {
@@ -140,7 +134,7 @@ export default class MonthlyList extends Component {
         {this.state.monthes.map((item, index) =>
         <Card key={index}>
           <CardItem header>
-            <Text>{getMonthName(item.month.substring(5, 7))} / {item.month.substring(0, 4)}</Text>
+            <Text>{getMonthYear(item.month)}</Text>
           </CardItem>
           <CardItem>
             <Body>

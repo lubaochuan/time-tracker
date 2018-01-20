@@ -4,7 +4,7 @@ import SubjectListContainer from "./SubjectListContainer"
 import { StackNavigator } from "react-navigation"
 import StudentEdit from "./StudentEdit"
 import SubjectEdit from "./SubjectEdit"
-import TaskEdit from "./TaskEdit"
+import RecordEdit from "./RecordEdit"
 import { withMappedNavigationAndConfigProps } from 'react-navigation-props-mapper'
 
 export default (StudentsStackNavigator = StackNavigator({
@@ -12,6 +12,6 @@ export default (StudentsStackNavigator = StackNavigator({
   SubjectList: { screen: withMappedNavigationAndConfigProps(SubjectListContainer) },
   StudentEdit: { screen: withMappedNavigationAndConfigProps(StudentEdit) },
   SubjectEdit: { screen: withMappedNavigationAndConfigProps(SubjectEdit) },
-  TaskEdit: { screen: withMappedNavigationAndConfigProps(TaskEdit) },
+  RecordEdit: { screen: withMappedNavigationAndConfigProps(RecordEdit) },
   /*Detail: { screen: withMappedNavigationAndConfigProps(Detail) },*/
 }));

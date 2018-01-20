@@ -4,20 +4,19 @@ import { Container, Body, Content, Header, Left, Right, Icon, Title,
   Button, Text, Card, CardItem } from 'native-base'
 import Communications from 'react-native-communications'
 
-export default class TaskExport extends React.Component {
+export default class RecordExport extends React.Component {
   constructor(props){
     super(props)
-
+    const { student } = props
     result = 'student, subject, date, duration, note \n'
-    props.tasks.forEach((task) =>
-      result += task.student+', '+task.subject+', '+task.date+', '
-        +task.duration+' mins, "'+task.note+'"\n'
+    student.records.forEach((record) =>
+      result += student.name+', '+record.subject+', '+record.date+', '
+        +record.duration+' mins, "'+record.note+'"\n'
     )
-    console.log(result)
     this.state = {'result': result}
   }
 
-  static navigationOptions = ({ navigation, tasks }) => ({
+  static navigationOptions = ({ navigation }) => ({
     header: (
       <Header>
         <Left>
@@ -49,7 +48,7 @@ export default class TaskExport extends React.Component {
         <Button full onPress={() =>
           Communications.email([
             ''],null,null,
-            'All Records from Time Tracker', this.state.result)}>
+            'All Records for '+this.props.student.name, this.state.result)}>
           <Text>Email Me</Text>
         </Button>
       </Container>

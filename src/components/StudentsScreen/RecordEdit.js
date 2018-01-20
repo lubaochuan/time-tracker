@@ -10,12 +10,12 @@ function isNormalInteger(str) {
     return /^\+?(0|[1-9]\d*)$/.test(str)
 }
 
-class TaskEdit extends React.Component {
+class RecordEdit extends React.Component {
   constructor(props){
     super(props)
   }
 
-  static navigationOptions = ({ navigation, edit }) => ({
+  static navigationOptions = ({ navigation }) => ({
     header: (
       <Header>
         <Left>
@@ -25,7 +25,7 @@ class TaskEdit extends React.Component {
           </Button>
         </Left>
         <Body>
-          <Title>{edit?'Edit':'New'}</Title>
+          <Title><Text>Record</Text></Title>
         </Body>
         <Right />
       </Header>
@@ -101,21 +101,17 @@ class TaskEdit extends React.Component {
   }
 
   render() {
-    const { handleSubmit, students, subjects } = this.props;
+    const { handleSubmit, studentName, subjects } = this.props;
 
     return (
       <Container>
         <Content padder>
           <Form>
-          <Field
-            name="student"
-            label="Student"
-            component={ this.renderPicker }
-            iosHeader="Select one"
-            mode="dropdown">
-            {students.map((student, index) =>
-              <Item label={student} value={student} key={index}/>)}
-          </Field>
+          <Item disalbed>
+            <Button transparent dark>
+              <Text>{studentName}</Text>
+            </Button>
+          </Item>
           <Field
             name="subject"
             label="Subject"
@@ -149,6 +145,6 @@ class TaskEdit extends React.Component {
 }
 
 export default reduxForm({
-  form: 'test',
+  form: 'task-edit',
   /*validate*/
-})(TaskEdit)
+})(RecordEdit)

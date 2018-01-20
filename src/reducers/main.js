@@ -1,7 +1,5 @@
 const initialState = {
-  tasks: [],
-  students: [],
-  subjects: [],
+  students: []
 }
 
 function compare(a, b) {
@@ -14,115 +12,166 @@ function compare(a, b) {
 
 export const main = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_TASK':
-      /* add new task to front so that tasks added on the same day
-         are sorted in order of addition */
-      newTasks = [action.payload, ...state.tasks]
-      newTasks = newTasks.sort(compare)
-      return {
-        ...state,
-        tasks: newTasks
-      }
-    case 'UPDATE_TASK':
-      newTasks = state.tasks.map(
-        (task, index) => {
-          if(action.index === index){
-            return action.payload
-          }else{
-            return task
-          }})
-      newTasks = newTasks.sort(compare)
-      return {
-        ...state,
-        tasks: newTasks
-      }
-    case 'REMOVE_TASK':
-      return {
-        ...state,
-        tasks: [...state.tasks.slice(0, action.index), ...state.tasks.slice(action.index + 1)],
-      }
-    case 'REMOVE_ALL_TASKS':
-      return {
-        ...state,
-        tasks: [],
-      }
-
     case 'ADD_STUDENT':
-      return { ...state,
-        students: [...state.students, action.payload],
+      return {
+        ...state,
+        students: [
+          ...state.students,  /* existing students */
+          {...action.payload, /* new student */
+            subjects:[],      /* initialize */
+            records:[],       /* initialize */
+          }
+        ],
       }
     case 'UPDATE_STUDENT':
-      oldname = state.students[action.index].name
-      newname = action.payload.name
+      studentIndex = action.index
+      newName = action.payload.name
       return {
         ...state,
-        students: state.students.map(
-          (student, index) => {
-            if(action.index === index){
-              return action.payload
-            }else{
-              return student
-            }
-          }),
-        /* propagate name change to all tasks */
-        tasks: state.tasks.map(
-          (task, index) => {
-            if(task.student === oldname){
-              return {...task, student:newname}
-            }else{
-              return task
-            }
-          }),
-      }
+        students: state.students.map((student, index) => {
+        if(index === this.studentIndex){
+          return {
+            name: this.newName,
+            subjects: student.subjects,
+            records: student.records,
+          }
+        }else{
+          return student
+        }})}
     case 'REMOVE_STUDENT':
-      return { ...state,
-        students: [...state.students.slice(0, action.index),
-          ...state.students.slice(action.index + 1)],
-      }
-    case 'REMOVE_ALL_STUDENTS':
       return {
         ...state,
-        students: [],
-      }
+        students: [...state.students.slice(0, action.index),
+          ...state.students.slice(action.index + 1)],}
 
     case 'ADD_SUBJECT':
-      return { ...state,
-        subjects: [...state.subjects, action.payload],
-      }
-    case 'UPDATE_SUBJECT':
-      oldname = state.subjects[action.index].name
-      newname = action.payload.name
+      studentName = action.payload.student
+      newSubject = action.payload.subject
       return {
         ...state,
-        subjects: state.subjects.map(
-          (subject, index) => {
-            if(action.index === index){
-              return action.payload
-            }else{
-              return subject
+        students: state.students.map(student => {
+          if (student.name == this.studentName){
+            return {...student, subjects:[...student.subjects, this.newSubject]}
+          }else{
+            return student
+          }})}
+    case 'UPDATE_SUBJECT':
+      subjectIndex = action.index
+      studentName = action.payload.student
+      newSubject = action.payload.subject
+      oldSubjectName = undefined
+      return {
+        ...state,
+        students: state.students.map(student => {
+          if (student.name == this.studentName){
+            /* find and update subject name in subjects and records */
+            return {
+              ...student,
+              subjects: student.subjects.map((subject, index) => {
+                if (this.subjectIndex == index){
+                  this.oldSubjectName = subject.name
+                  return this.newSubject
+                }else{
+                  return subject
+                }
+              }),
+              records: student.records.map(record => {
+                if (record.subject == this.oldSubjectName){
+                  return {...record, subject: newSubject.name}
+                }else{
+                  return record
+                }
+              })
             }
-          }),
-        /* propagate subject change to all tasks */
-        tasks: state.tasks.map(
-          (task, index) => {
-            if(task.subject === oldname){
-              return {...task, subject:newname}
-            }else{
-              return task
-            }
-          }),
-      }
+          }else{
+            return student
+          }})}
     case 'REMOVE_SUBJECT':
-      return { ...state,
-        subjects: [...state.subjects.slice(0, action.index),
-          ...state.subjects.slice(action.index + 1)],
-      }
+      subjectIndex = action.index
+      studentName = action.payload.student
+      return {
+        ...state,
+        students: state.students.map(student => {
+          if (student.name == this.studentName){
+            /* delete subject name in subjects, but not records */
+            return {
+              ...student,
+              subjects: [
+                ...student.subjects.slice(0, this.subjectIndex),
+                ...student.subjects.slice(this.subjectIndex + 1)],
+            }
+          }else{
+            return student
+          }})}
+    case 'ADD_RECORD':
+      /* sort tasks anti-chronological latest first */
+      studentName = action.payload.student
+      subjectName = action.payload.subject
+      newRecord = action.payload.record
+      return {
+        ...state,
+        students: state.students.map(student => {
+          if (student.name == this.studentName){
+            newRecords = [newRecord, ...student.records]
+            newRecords = newRecords.sort(compare)
+            return {...student,
+              records: newRecords}
+          }else{
+            return student
+          }})}
+    case 'UPDATE_RECORD':
+      recordIndex = action.index
+      studentName = action.payload.student
+      newRecord = action.payload.record
+      return {
+        ...state,
+        students: state.students.map(student => {
+          if (student.name == this.studentName){
+            newRecords = student.records.map((record, index) => {
+              if (this.recordIndex == index){
+                return this.newRecord
+              }else{
+                return record
+              }})
+            newRecords = newRecords.sort(compare)
+            return { ...student, records: newRecords }
+          }else{
+            return student
+          }})}
+    case 'REMOVE_RECORD':
+      recordIndex = action.index
+      studentName = action.payload.student
+      return {
+        ...state,
+        students: state.students.map(student => {
+          if (student.name == this.studentName){
+            return {
+              ...student,
+              records: [...student.records.slice(0, recordIndex),
+                        ...student.records.slice(recordIndex + 1)],}
+          }else{
+            return student
+          }})}
+    case 'REMOVE_ALL_RECORDS':
+      return {
+        ...state,
+        students: state.students.map(student => {
+          return {
+              ...student,
+              records: [],
+            }}),}
     case 'REMOVE_ALL_SUBJECTS':
       return {
         ...state,
-        subjects: [],
-      }
-    default:
+        students: state.students.map(student => {
+          return {
+              ...student,
+              subjects: [],
+            }}),}
+    case 'REMOVE_ALL_STUDENTS':
+      return {
+        ...state,
+        students: [],}
   }
   return state
 }

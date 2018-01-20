@@ -72,12 +72,15 @@ class SubjectEdit extends Component {
   )
 
   render() {
-    const { handleSubmit } = this.props;
+    const { studentName, handleSubmit } = this.props;
 
     return (
       <Container>
         <Content padder>
           <Form>
+          <Item>
+            <Text style={{ marginBottom:20 }}>{studentName}</Text>
+          </Item>
           <Field name='name'
             placeholder='Subject'
             component={this.renderInput} />

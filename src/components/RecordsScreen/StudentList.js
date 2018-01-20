@@ -33,7 +33,7 @@ export default class StudentList extends Component {
         </Button>
       </Left>
       <Body>
-        <Title>Reports</Title>
+        <Title>Records</Title>
       </Body>
       <Right />
       </Header>
@@ -47,7 +47,7 @@ export default class StudentList extends Component {
 
   pickStudent(student) {
     this.navigate(()=>
-    this.props.navigation.navigate('MonthlyList', {student}))
+    this.props.navigation.navigate('RecordList', {student}))
   }
 
   render() {
