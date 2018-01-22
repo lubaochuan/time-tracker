@@ -2,7 +2,7 @@
 # Time Tracker App
 An app for tracking and reporting learning time.
 
-# Tools
+## Tools
 * [Expo](https://expo.io/) for toolchain
 * [react-native](https://facebook.github.io/react-native/) for structure
 * [native-base](https://nativebase.io/) for UI components

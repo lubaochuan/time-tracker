@@ -1,6 +1,6 @@
 # User Manual
 
-# Need
+## Need
 Homeschool moms need an app to help track their kids learning time. The app needs to be simple and useful.
 * simple: Moms can record their kids' learning time quickly (at most 3 taps in less than a minute) and can forget about it.
 * useful: When moms want to know how much time their kids have spent on various subjects (or whether their goals are reached) the information is readily available in the app.
