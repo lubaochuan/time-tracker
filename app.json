@@ -19,7 +19,7 @@
     },
     "android": {
       "package": "org.createdtolearn.timetracker",
-      "versionCode": 2
+      "versionCode": 3
     }
   }
 }

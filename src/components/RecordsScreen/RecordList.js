@@ -97,7 +97,6 @@ export default class RecordList extends Component {
           {student.records.map((record, index) =>
           <ListItem
             key={index}
-            onPress={() => this.editRecord(record, index)}
             onLongPress={() =>
               Alert.alert(
                 'Quick Menu',
